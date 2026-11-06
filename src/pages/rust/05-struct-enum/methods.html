@@ -1,0 +1,58 @@
+<article class="doc">
+      <h1>5.2 เมธอดใน impl</h1>
+
+      <p>ฟังก์ชัน <code>passed</code> ที่รับนักเรียนทั้งก้อนใช้ได้ แต่เรียกแบบ <code>s.passed()</code> อ่านง่ายกว่าว่านี่คือคำถามของนักเรียนคนนี้ เมธอดเขียนในบล็อก <code>impl</code></p>
+
+      <h2 id="self">self คือตัวที่ยืมมา</h2>
+
+      <p><code>&amp;self</code> คือการยืม struct มาอ่าน แบบเดียวกับ <code>&amp;Student</code> ในบทที่ 2 แค่เขียนสั้นเพราะอยู่ใน <code>impl</code> ของชนิดนั้น</p>
+
+<div class="code" data-lang="rust" data-linenums data-test="passed"><pre><code>struct Student {
+    name: String,
+    score: i32,
+}
+
+impl Student {
+    fn passed(&amp;self) -&gt; bool {
+        self.score &gt;= 70
+    }
+
+    fn add_bonus(&amp;mut self) {
+        self.score += 5;
+    }
+}
+
+fn main() {
+    let mut s = Student {
+        name: String::from("Ann"),
+        score: 68,
+    };
+    s.add_bonus();
+    println!("{}", s.score);
+    println!("{}", s.passed());
+    println!("{}", s.name);
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="passed" data-title="cargo run"><pre><code>73
+true
+Ann</code></pre></div>
+
+      <ul>
+      <li><code>&amp;self</code> อ่านได้อย่างเดียว <code>&amp;mut self</code> แก้ฟิลด์ได้ และตัวแปรนอกต้องเป็น <code>mut</code></li>
+      <li>เรียกเมธอดด้วยจุด ไม่ต้องส่ง <code>self</code> เอง</li>
+      <li>หลังเรียกทั้งสองเมธอด ฟิลด์ <code>name</code> ยังอยู่ เพราะไม่ได้ย้าย struct ออกไป</li>
+      </ul>
+
+      <div class="adm adm-tip" role="note">
+              <p class="adm-title">ฟังก์ชันที่ไม่มี self</p>
+              <p>ใน <code>impl</code> เขียน <code>fn new</code> โดยไม่มี <code>self</code> ได้ เรียกด้วย <code>Student::new()</code> ใช้ตอนอยากมีทางสร้างค่าที่ตรวจฟิลด์ให้ ชุดนี้ยังใช้การสร้างตรงๆ พอ</p>
+            </div>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li>เมธอดอยู่ใต้ <code>impl ชื่อชนิด</code></li>
+              <li><code>&amp;self</code> ยืมมาอ่าน <code>&amp;mut self</code> ยืมมาแก้</li>
+              <li>เรียกด้วยจุดบนค่าที่มีอยู่</li>
+            </ul>
+    </article>

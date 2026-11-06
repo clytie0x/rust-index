@@ -1,0 +1,64 @@
+<article class="doc">
+      <h1>5.1 struct</h1>
+
+      <p>ตัวแปร <code>name</code> กับ <code>score</code> คนละตัวหลุดกันง่ายเมื่อมีนักเรียนหลายคน struct คือชนิดที่เรานิยามเอง เพื่อให้ฟิลด์ที่เดินด้วยกันอยู่ก้อนเดียว</p>
+
+      <h2 id="fields">ฟิลด์มีชื่อ</h2>
+
+<div class="code" data-lang="rust" data-linenums data-annotate data-test="student"><pre><code>struct Student {
+    name: String,
+    score: i32,
+}
+
+fn main() {
+    let s = Student {
+        name: String::from("Ann"),
+        score: 85,
+    };
+    println!("{}", s.name);
+    println!("{}", s.score);
+}</code></pre></div>
+
+            <ol class="anno-list">
+              <li><code>struct</code> ตั้งชื่อชนิด ฟิลด์แต่ละตัวมีชนิดของตัวเอง</li>
+              <li>สร้างค่าด้วยชื่อฟิลด์ครบทุกตัว ลำดับในวงเล็บปีกกาไม่สำคัญเท่าชื่อ</li>
+              <li>อ่านฟิลด์ด้วยจุด <code>s.name</code> ค่า <code>name</code> เป็น <code>String</code> ที่ struct เป็นเจ้าของ</li>
+            </ol>
+
+      <div class="code" data-lang="output" data-for="student" data-title="cargo run"><pre><code>Ann
+85</code></pre></div>
+
+      <p>ฟิลด์ที่เป็น <code>String</code> ถูกย้ายเข้า struct ตอนสร้าง ตัวแปรเดิมที่ใช้สร้างจึงใช้ต่อไม่ได้ ถ้ายังต้องใช้ชื่อเดิมให้ <code>clone</code> ซึ่งบทที่ 7 จะเจออีกทีตอนกุญแจของแมป</p>
+
+      <h2 id="break-it">ลองทำให้พัง</h2>
+
+      <p>ลืมฟิลด์ <code>score</code> rustc ไม่เดาให้ เพราะ struct ต้องครบทุกฟิลด์ตั้งแต่สร้าง</p>
+
+<div class="code" data-lang="rust" data-linenums><pre><code>struct Student {
+    name: String,
+    score: i32,
+}
+
+fn main() {
+    let s = Student {
+        name: String::from("Ann"),
+    };
+    println!("{}", s.score);
+}</code></pre></div>
+
+<div class="code" data-lang="rustc"><pre><code>error[E0063]: missing field `score` in initializer of `Student`
+ --&gt; main.rs:7:13
+  |
+7 |     let s = Student {
+  |             ^^^^^^^ missing `score`</code></pre></div>
+
+      <p>ข้อความนี้ตัดบรรทัด <code>aborting due to</code> กับลิงก์อธิบายรหัส error ออก เนื้อที่เหลือคือ rustc ชี้ว่าตัวสร้างยังขาด <code>score</code></p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>struct</code> รวมฟิลด์ที่มีชื่อและชนิด</li>
+              <li>สร้างค่าต้องใส่ครบทุกฟิลด์</li>
+              <li>อ่านฟิลด์ด้วยจุด</li>
+            </ul>
+    </article>

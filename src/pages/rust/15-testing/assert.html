@@ -1,0 +1,54 @@
+<article class="doc">
+      <h1>15.1 assert</h1>
+
+      <p>พิมพ์แล้วมองจอจับความพลาดได้ตอนตัวอย่างสั้น พอมีหลายกรณี ให้เขียนผลที่ต้องได้ไว้ข้างฟังก์ชัน <code>assert_eq!</code> เทียบสองค่า ถ้าไม่เท่า โปรแกรมหยุดทันที</p>
+
+      <h2 id="eq">ล็อกเกรดสามกรณี</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="ok"><pre><code>fn band(score: i32) -&gt; &amp;'static str {
+    if score &gt;= 80 {
+        "A"
+    } else if score &gt;= 70 {
+        "B"
+    } else {
+        "C"
+    }
+}
+
+fn main() {
+    assert_eq!(band(85), "A");
+    assert_eq!(band(70), "B");
+    assert_eq!(band(61), "C");
+    println!("ok");
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="ok" data-title="cargo run"><pre><code>ok</code></pre></div>
+
+      <p>ถึงบรรทัด <code>ok</code> แปลว่าทั้งสามกรณีตรง ถ้าแก้เกณฑ์แล้วลืมกรณี 70 โปรแกรมจะไม่พิมพ์ ok</p>
+
+      <h2 id="break-it">ลองทำให้พัง</h2>
+
+      <p><code>assert_eq!</code> เทียบได้เมื่อสองข้างเป็นชนิดที่เทียบกันได้ เลขกับข้อความคนละชนิดจึงไม่ผ่านตั้งแต่คอมไพล์</p>
+
+<div class="code" data-lang="rust" data-linenums><pre><code>fn main() {
+    assert_eq!(1, "1");
+}</code></pre></div>
+
+<div class="code" data-lang="rustc"><pre><code>error[E0277]: can't compare `{integer}` with `&amp;str`
+ --&gt; main.rs:2:5
+  |
+2 |     assert_eq!(1, "1");
+  |     ^^^^^^^^^^^^^^^^^^ no implementation for `{integer} == &amp;str`
+  |
+  = help: the trait `PartialEq&lt;&amp;str&gt;` is not implemented for `{integer}`</code></pre></div>
+
+      <p>ตัดรายชื่อชนิดตัวเลขที่ทำ <code>PartialEq</code> ออกจากข้อความจริง เพราะยาวและไม่ได้ช่วยตอนติว ให้เทียบค่าชนิดเดียวกัน เช่น จำนวนกับจำนวน หรือข้อความกับข้อความ</p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>assert_eq!</code> หยุดเมื่อสองค่าไม่เท่า</li>
+              <li>วางกรณีสำคัญไว้ก่อนงานจริง</li>
+              <li>สองข้างต้องเทียบชนิดกันได้</li>
+            </ul>
+    </article>

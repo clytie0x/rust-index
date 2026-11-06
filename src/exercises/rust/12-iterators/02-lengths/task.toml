@@ -1,0 +1,4 @@
+title = "ความยาวแต่ละคำ"
+level = 1
+time_limit = 1
+hint = "<p><code>map</code> จากคำไปที่ <code>len</code> แล้วพิมพ์ทีละบรรทัด</p>"

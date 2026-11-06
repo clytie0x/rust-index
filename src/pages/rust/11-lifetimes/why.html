@@ -1,0 +1,58 @@
+<article class="doc">
+      <h1>11.1 ทำไมต้องมี lifetime</h1>
+
+      <p>ฟังก์ชันเลือกข้อความที่ยาวกว่า ทางที่ไม่มีเรื่อง lifetime คือสำเนาเป็น <code>String</code> แล้วคืนของที่ฟังก์ชันเป็นเจ้าของ ผู้เรียกได้ก้อนใหม่ ไม่ผูกกับอาร์กิวเมนต์</p>
+
+      <h2 id="owned">คืนของตัวเอง</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="owned"><pre><code>fn longer_owned(a: &amp;str, b: &amp;str) -&gt; String {
+    if a.len() &gt;= b.len() {
+        a.to_string()
+    } else {
+        b.to_string()
+    }
+}
+
+fn main() {
+    let text = longer_owned("Ann", "Mali");
+    println!("{text}");
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="owned" data-title="cargo run"><pre><code>Mali</code></pre></div>
+
+      <p><code>len</code> นับไบต์ แบบที่หน้า 1.3 เตือนไว้ <code>Mali</code> ยาวกว่า <code>Ann</code> จึงถูกสำเนาออกมา การสำเนาปลอดภัย แต่เปลืองเมื่อข้อความยาวและเราแค่จะชี้ของเดิม</p>
+
+      <h2 id="break-it">ลองทำให้พัง</h2>
+
+      <p>ถ้าคืน <code>&amp;str</code> เพื่อไม่สำเนา rustc ต้องรู้ว่าผลชี้ไปที่ <code>a</code> หรือ <code>b</code> ลายเซ็นด้านล่างไม่บอก จึงไม่ผ่าน</p>
+
+<div class="code" data-lang="rust" data-linenums><pre><code>fn longer(a: &amp;str, b: &amp;str) -&gt; &amp;str {
+    if a.len() &gt;= b.len() { a } else { b }
+}
+
+fn main() {
+    println!("{}", longer("Ann", "Mali"));
+}</code></pre></div>
+
+<div class="code" data-lang="rustc"><pre><code>error[E0106]: missing lifetime specifier
+ --&gt; main.rs:1:32
+  |
+1 | fn longer(a: &amp;str, b: &amp;str) -&gt; &amp;str {
+  |              ----     ----     ^ expected named lifetime parameter
+  |
+  = help: this function's return type contains a borrowed value, but the signature does not say whether it is borrowed from `a` or `b`
+help: consider introducing a named lifetime parameter
+  |
+1 | fn longer&lt;'a&gt;(a: &amp;'a str, b: &amp;'a str) -&gt; &amp;'a str {
+  |          ++++     ++          ++          ++</code></pre></div>
+
+      <p>help บรรทัดท้ายคือลายเซ็นที่หน้าถัดไปจะใช้ ชื่อ <code>'a</code> ไม่ได้สร้างค่าใหม่ มันเป็นป้ายว่าระยะการยืมชุดนี้เป็นชุดเดียวกัน</p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li>คืน <code>String</code> ได้โดยไม่ต้องพูดถึง lifetime เพราะผู้เรียกได้ของใหม่</li>
+              <li>คืน <code>&amp;str</code> คือการชี้ของเดิม rustc ต้องรู้ว่าของใคร</li>
+              <li>มีตัวยืมเข้าสองตัวแล้วไม่บอกป้าย rustc จะถามเอง</li>
+            </ul>
+    </article>

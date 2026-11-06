@@ -1,0 +1,77 @@
+<article class="doc">
+      <h1>5.3 enum</h1>
+
+      <p>เกรดไม่ควรเป็น <code>String</code> ว่างที่พิมพ์ผิดได้ enum คือชนิดที่มีตัวเลือกชุดหนึ่ง rustc รู้ว่ามีกี่ทาง และ <code>match</code> จากหน้า 3.3 บังคับให้คิดถึงครบ</p>
+
+      <h2 id="variants">แต่ละทางคือ variant</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="grade"><pre><code>enum Grade {
+    A,
+    B,
+    C,
+}
+
+fn label(score: i32) -&gt; Grade {
+    if score &gt;= 80 {
+        Grade::A
+    } else if score &gt;= 70 {
+        Grade::B
+    } else {
+        Grade::C
+    }
+}
+
+fn show(grade: Grade) {
+    match grade {
+        Grade::A =&gt; println!("A"),
+        Grade::B =&gt; println!("B"),
+        Grade::C =&gt; println!("C"),
+    }
+}
+
+fn main() {
+    show(label(85));
+    show(label(70));
+    show(label(61));
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="grade" data-title="cargo run"><pre><code>A
+B
+C</code></pre></div>
+
+      <p>เขียน <code>Grade::A</code> เพราะ <code>A</code> อยู่ในชนิด <code>Grade</code> แขนของ <code>match</code> ต้องมีครบสามทาง จะใช้ <code>_</code> รับที่เหลือก็ได้ แต่เกรดมีไม่กี่ตัว เขียนครบอ่านชัดกว่า</p>
+
+      <h2 id="data">variant ถือค่าได้</h2>
+
+      <p>บางทางมีข้อมูลติดมาด้วย เช่น รู้คะแนน หรือยังไม่รู้ ตัวเลือกที่ไม่มีค่ากับตัวเลือกที่มี <code>i32</code> อยู่ชนิดเดียวกันได้</p>
+
+<div class="code" data-lang="rust" data-linenums data-test="answer"><pre><code>enum Answer {
+    Known(i32),
+    Missing,
+}
+
+fn show(answer: Answer) {
+    match answer {
+        Answer::Known(n) =&gt; println!("{n}"),
+        Answer::Missing =&gt; println!("missing"),
+    }
+}
+
+fn main() {
+    show(Answer::Known(85));
+    show(Answer::Missing);
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="answer" data-title="cargo run"><pre><code>85
+missing</code></pre></div>
+
+      <p><code>Option</code> ในบทที่ 6 เป็น enum ของไลบรารีมาตรฐาน ที่มี <code>Some</code> ถือค่า และ <code>None</code> ที่ไม่มีค่า แนวคิดเดียวกับ <code>Answer</code> นี้</p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>enum</code> คือชุดตัวเลือกที่ rustc รู้จักครบ</li>
+              <li>เรียกตัวเลือกด้วย <code>ชื่อ::ตัวเลือก</code></li>
+              <li><code>match</code> ต้องครอบทุกตัวเลือก หรือมี <code>_</code></li>
+            </ul>
+    </article>

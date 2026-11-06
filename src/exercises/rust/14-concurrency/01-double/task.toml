@@ -1,0 +1,4 @@
+title = "คูณในเธรด"
+level = 1
+time_limit = 1
+hint = "<p><code>thread::spawn(move || n * 2)</code> แล้ว <code>join</code> ก่อนพิมพ์</p>"

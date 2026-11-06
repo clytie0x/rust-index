@@ -1,0 +1,27 @@
+<article class="doc">
+      <h1>บทที่ 6 จัดการ error</h1>
+
+      <p>ของบางอย่างอาจไม่มี และข้อความที่อ่านมาอาจไม่ใช่ตัวเลข บทนี้ให้ค่าที่อาจขาดเป็น Option และงานที่อาจพลาดเป็น Result</p>
+
+            <h2 id="in-this-chapter">ในบทนี้</h2>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>หน้า</th><th>ได้อะไร</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><a href="option.html">6.1 Option</a></td><td>แทนค่าที่อาจไม่มี โดยไม่ใช้เลขมหัศจรรย์</td></tr><tr><td><a href="result.html">6.2 Result</a></td><td>แยกงานสำเร็จกับงานพลาด โดยค่ากับเหตุผลอยู่คนละทาง</td></tr><tr><td><a href="question.html">6.3 เครื่องหมายคำถาม</a></td><td>ส่ง error กลับไปทันทีเมื่อขั้นใดขั้นหนึ่งพลาด</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2 id="checklist">ผ่านบทนี้เมื่อ</h2>
+
+            <ul class="task-list">
+              <li><label><input type="checkbox"><span>แยก <code>Some</code> กับ <code>None</code> ด้วย <code>match</code> ได้</span></label></li>
+              <li><label><input type="checkbox"><span>แยก <code>Ok</code> กับ <code>Err</code> ได้โดยไม่เรียก <code>unwrap</code></span></label></li>
+              <li><label><input type="checkbox"><span>ใช้ <code>?</code> ในฟังก์ชันที่คืน <code>Result</code></span></label></li>
+              <li><label><input type="checkbox"><span>บอกได้ว่า <code>?</code> ใน <code>main</code> ที่คืน <code>()</code> คอมไพล์ไม่ผ่าน</span></label></li>
+            </ul>
+    </article>

@@ -1,0 +1,34 @@
+<article class="doc">
+      <h1>12.2 map กับ filter</h1>
+
+      <p><code>for</code> บวกสะสมได้ แต่โจทย์เลือกเฉพาะคนที่ผ่านแล้วเก็บลิสต์ใหม่ อ่านเป็นประโยคได้ด้วย iterator <code>filter</code> เลือก <code>map</code> แปลง <code>collect</code> เก็บผล</p>
+
+      <h2 id="filter">เลือกคะแนนที่ผ่าน</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="passed"><pre><code>fn main() {
+    let scores = vec![60, 70, 85];
+    let passed: Vec&lt;i32&gt; = scores.iter().copied().filter(|score| *score &gt;= 70).collect();
+    for score in &amp;passed {
+        println!("{score}");
+    }
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="passed" data-title="cargo run"><pre><code>70
+85</code></pre></div>
+
+      <ul>
+      <li><code>iter</code> ยืมทีละช่อง <code>copied</code> คัดลอก <code>i32</code> ออกมาเพราะเป็น <code>Copy</code></li>
+      <li><code>filter</code> ได้ตัวอ้างอิงของค่านั้น จึงเขียน <code>*score</code> ตอนเทียบ</li>
+      <li><code>collect</code> ต้องบอกชนิด <code>Vec&lt;i32&gt;</code> เพราะมันเก็บลงได้หลายแบบ rustc ไม่เดาภาชนะให้</li>
+      </ul>
+
+      <p>ลิสต์เดิม <code>scores</code> ยังอยู่ เพราะเริ่มจาก <code>iter</code> ไม่ได้ย้ายทั้งก้อน</p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>filter</code> เก็บเฉพาะช่องที่ closure คืน true</li>
+              <li><code>collect</code> ต้องระบุชนิดลิสต์ที่อยากได้</li>
+              <li>เริ่มจาก <code>iter</code> แล้วลิสต์เดิมยังใช้ต่อได้</li>
+            </ul>
+    </article>

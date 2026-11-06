@@ -1,0 +1,50 @@
+<article class="doc">
+      <h1>4.3 วนลิสต์</h1>
+
+      <p>โจทย์รวมคะแนนไม่อยากเขียนดัชนีทีละช่อง <code>for</code> ที่เคยเดินช่วงตัวเลขในหน้า 3.2 เดินสมาชิกของลิสต์ได้เหมือนกัน</p>
+
+      <h2 id="borrow-loop">ยืมทั้งลิสต์ตอนวน</h2>
+
+      <p>ถ้าเขียน <code>for score in scores</code> โดย <code>scores</code> เป็น <code>Vec</code> ลิสต์ถูกย้ายเข้าลูป พอจบลูปใช้ชื่อเดิมไม่ได้ งานติวมักต้องพิมพ์ทั้งผลรวมและความยาว จึงยืมด้วย <code>&amp;scores</code></p>
+
+<div class="code" data-lang="rust" data-linenums data-test="total"><pre><code>fn main() {
+    let scores = vec![70, 80, 90];
+    let mut total = 0;
+    for score in &amp;scores {
+        total += score;
+    }
+    println!("{total}");
+    println!("{}", scores.len());
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="total" data-title="cargo run"><pre><code>240
+3</code></pre></div>
+
+      <ul>
+      <li><code>score</code> ในลูปคือ <code>&amp;i32</code> บวกเข้า <code>total</code> ได้โดยไม่ต้องเขียน <code>*</code> เอง</li>
+      <li>หลังลูป <code>scores.len()</code> ยังเรียกได้ เพราะยืมอย่างเดียว</li>
+      <li><code>i32</code> เป็น <code>Copy</code> จากบทที่ 2 แต่ <code>Vec</code> ไม่ใช่ การยืมจึงสำคัญตรงลิสต์ ไม่ใช่ตรงตัวเลข</li>
+      </ul>
+
+      <h2 id="index-loop">เมื่อต้องรู้ดัชนี</h2>
+
+      <p>บางโจทย์ต้องพิมพ์ว่าคนที่เท่าไหร่ได้คะแนนเท่าไหร่ ใช้ <code>iter().enumerate()</code> ได้คู่ของดัชนีกับค่า รายละเอียดของ iterator อยู่ในบทที่ 12 ตอนนี้จำแค่ว่าได้เลขลำดับเริ่มที่ 0</p>
+
+<div class="code" data-lang="rust" data-linenums data-test="enum"><pre><code>fn main() {
+    let scores = vec![70, 80];
+    for (i, score) in scores.iter().enumerate() {
+        println!("{i} {score}");
+    }
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="enum" data-title="cargo run"><pre><code>0 70
+1 80</code></pre></div>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>for score in &amp;scores</code> อ่านทุกช่องโดยลิสต์ยังอยู่</li>
+              <li>บวกสะสมได้ในตัวแปร <code>mut</code> นอกลูป</li>
+              <li>อยากได้เลขลำดับใช้ <code>iter().enumerate()</code></li>
+            </ul>
+    </article>

@@ -1,0 +1,64 @@
+<article class="doc">
+      <h1>14.1 เธรดกับ join</h1>
+
+      <p>เธรดคืองานที่เดินคู่กับ <code>main</code> ถ้าพิมพ์จากหลายเธรดโดยไม่จัดลำดับ บรรทัดจะสลับกันทุกครั้งที่รัน ชุดนี้เลยให้เธรดคืนค่า แล้ว <code>join</code> รอให้จบก่อนค่อยพิมพ์จาก <code>main</code></p>
+
+      <h2 id="join">รอค่ากลับ</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="join"><pre><code>use std::thread;
+
+fn main() {
+    let handle = thread::spawn(|| 40 + 5);
+    let score = handle.join().unwrap();
+    println!("{score}");
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="join" data-title="cargo run"><pre><code>45</code></pre></div>
+
+      <p><code>spawn</code> ได้มือจับ <code>join</code> รอจน closure จบ แล้วให้ค่าที่ closure คืน <code>unwrap</code> ตรงนี้แปลว่าเราไม่จัดการกรณีเธรด panic ในบทภาพรวมนี้</p>
+
+      <h2 id="break-it">ลองทำให้พัง</h2>
+
+      <p>closure ของเธรดอาจมีชีวิตยาวกว่าฟังก์ชันที่สร้างมัน การยืม <code>name</code> จาก <code>main</code> จึงไม่พอ ต้องย้ายเข้าไปด้วย <code>move</code></p>
+
+<div class="code" data-lang="rust" data-linenums><pre><code>use std::thread;
+
+fn main() {
+    let name = String::from("Ann");
+    let handle = thread::spawn(|| {
+        println!("{name}");
+    });
+    handle.join().unwrap();
+}</code></pre></div>
+
+<div class="code" data-lang="rustc"><pre><code>error[E0373]: closure may outlive the current function, but it borrows `name`, which is owned by the current function
+ --&gt; main.rs:5:32
+  |
+5 |     let handle = thread::spawn(|| {
+  |                                ^^ may outlive borrowed value `name`
+6 |         println!("{name}");
+  |                    ---- `name` is borrowed here
+  |
+note: function requires argument type to outlive `'static`
+ --&gt; main.rs:5:18
+  |
+5 |       let handle = thread::spawn(|| {
+  |  __________________^
+6 | |         println!("{name}");
+7 | |     });
+  | |______^
+help: to force the closure to take ownership of `name` (and any other referenced variables), use the `move` keyword
+  |
+5 |     let handle = thread::spawn(move || {
+  |                                ++++</code></pre></div>
+
+      <p>เติม <code>move</code> ตาม help แล้ว <code>name</code> ถูกย้ายเข้าเธรด ใช้ใน <code>main</code> หลัง <code>spawn</code> ไม่ได้อีก ป้าย <code>'static</code> ในข้อความคือระยะที่เธรดต้องการ ของที่ย้ายเข้าไปเป็นของเธรดเองจึงผ่าน</p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>thread::spawn</code> เริ่มงานอีกเส้น</li>
+              <li><code>join</code> รอก่อนใช้ค่าที่งานนั้นคืน</li>
+              <li>closure ของเธรดใช้ <code>move</code> เมื่อต้องถือค่าจากนอก</li>
+            </ul>
+    </article>

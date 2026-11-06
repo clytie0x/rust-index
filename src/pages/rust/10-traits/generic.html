@@ -1,0 +1,41 @@
+<article class="doc">
+      <h1>10.1 ฟังก์ชัน generic</h1>
+
+      <p>ฟังก์ชันเลือกค่าที่มากกว่ากัน ถ้าเขียนรับ <code>i32</code> อย่างเดียว ทศนิยมใช้ไม่ได้ generic คือการเว้นชนิดไว้เป็นชื่อ แล้วบอกสัญญาที่ชนิดนั้นต้องทำได้</p>
+
+      <h2 id="bound">สัญญา PartialOrd</h2>
+
+      <p><code>T: PartialOrd</code> แปลว่าชนิด T เทียบด้วย <code>&gt;=</code> ได้ สัญญานี้เป็น trait หน้าถัดไปจะเขียน trait ของเราเอง ตอนนี้ใช้ของที่มีในภาษาก่อน</p>
+
+<div class="code" data-lang="rust" data-linenums data-annotate data-test="larger"><pre><code>fn larger&lt;T: PartialOrd&gt;(a: T, b: T) -&gt; T {
+    if a &gt;= b {
+        a
+    } else {
+        b
+    }
+}
+
+fn main() {
+    println!("{}", larger(78, 91));
+    println!("{}", larger(3.5, 2.5));
+}</code></pre></div>
+
+            <ol class="anno-list">
+              <li><code>T</code> คือชื่อชนิดที่ยังไม่ระบุ ใส่ในวงเล็บมุมหลังชื่อฟังก์ชัน</li>
+              <li><code>PartialOrd</code> คือสัญญาว่าเทียบลำดับได้ จึงเขียน <code>a &gt;= b</code> ได้</li>
+              <li>เรียกกับ <code>i32</code> ครั้งหนึ่งและทศนิยมครั้งหนึ่ง โดยไม่เขียนฟังก์ชันซ้ำ</li>
+            </ol>
+
+      <div class="code" data-lang="output" data-for="larger" data-title="cargo run"><pre><code>91
+3.5</code></pre></div>
+
+      <p>สองอาร์กิวเมนต์ต้องเป็นชนิดเดียวกันในการเรียกหนึ่งครั้ง จะส่ง <code>i32</code> กับทศนิยมปนกันในบรรทัดเดียวไม่ได้</p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li>generic เว้นชนิดไว้เป็นชื่อเช่น <code>T</code></li>
+              <li>สิ่งที่เขียนหลังชื่อ <code>T</code> คือ trait ที่ชนิดนั้นต้องทำ</li>
+              <li>แต่ละครั้งที่เรียก T เป็นชนิดเดียวทั้งฟังก์ชัน</li>
+            </ul>
+    </article>

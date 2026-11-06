@@ -1,0 +1,73 @@
+<article class="doc">
+      <h1>7.2 HashMap</h1>
+
+      <p>ถ้ามีนักเรียนหลายคนแล้วต้องหาคะแนนจากชื่อ การเดิน <code>Vec</code> ทุกครั้งยังทำได้ แต่เมื่อชื่อคือกุญแจ <code>HashMap</code> เก็บคู่กุญแจกับค่าไว้ให้ค้นทีหลัง</p>
+
+      <h2 id="insert">ใส่แล้วค้น</h2>
+
+      <p>แมปอยู่ใน <code>std::collections</code> ต้อง <code>use</code> ก่อน <code>get</code> คืน <code>Option</code> แบบเดียวกับช่องของ <code>Vec</code> ในหน้า 6.1</p>
+
+<div class="code" data-lang="rust" data-linenums data-annotate data-test="map"><pre><code>use std::collections::HashMap;
+
+fn main() {
+    let mut scores = HashMap::new();
+    scores.insert(String::from("Ann"), 85);
+    scores.insert(String::from("Mali"), 72);
+    match scores.get("Ann") {
+        Some(n) =&gt; println!("{n}"),
+        None =&gt; println!("missing"),
+    }
+    match scores.get("Bo") {
+        Some(n) =&gt; println!("{n}"),
+        None =&gt; println!("missing"),
+    }
+}</code></pre></div>
+
+            <ol class="anno-list">
+              <li><code>HashMap::new</code> สร้างแมปว่าง ต้อง <code>mut</code> เพราะ <code>insert</code> แก้แมป</li>
+              <li>กุญแจเป็น <code>String</code> ที่แมปเป็นเจ้าของ ค่าเป็น <code>i32</code></li>
+              <li><code>get</code> รับ <code>&amp;str</code> ได้แม้กุญแจที่เก็บไว้เป็น <code>String</code></li>
+            </ol>
+
+      <div class="code" data-lang="output" data-for="map" data-title="cargo run"><pre><code>85
+missing</code></pre></div>
+
+      <h2 id="break-it">ลองทำให้พัง</h2>
+
+      <p>ใส่ <code>String</code> เป็นกุญแจคือการย้ายค่าเข้าแมป ชื่อเดิมใช้ต่อไม่ได้ นี่คือ move จากบทที่ 2 กับของที่ไม่ได้ <code>Copy</code></p>
+
+<div class="code" data-lang="rust" data-linenums><pre><code>use std::collections::HashMap;
+
+fn main() {
+    let mut scores = HashMap::new();
+    let name = String::from("Ann");
+    scores.insert(name, 80);
+    println!("{name}");
+}</code></pre></div>
+
+<div class="code" data-lang="rustc"><pre><code>error[E0382]: borrow of moved value: `name`
+ --&gt; main.rs:7:15
+  |
+5 |     let name = String::from("Ann");
+  |         ---- move occurs because `name` has type `String`, which does not implement the `Copy` trait
+6 |     scores.insert(name, 80);
+  |                   ---- value moved here
+7 |     println!("{name}");
+  |               ^^^^^^ value borrowed here after move
+  |
+  = note: this error originates in the macro `$crate::format_args_nl` which comes from the expansion of the macro `println` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider cloning the value if the performance cost is acceptable
+  |
+6 |     scores.insert(name.clone(), 80);
+  |                       ++++++++</code></pre></div>
+
+      <p>ถ้ายังต้องใช้ <code>name</code> หลังใส่แมป ให้ <code>clone</code> ตามที่ rustc บอก หรือพิมพ์ให้จบก่อน <code>insert</code> อย่าไล่พิมพ์ทุกกุญแจด้วยการวนแมปแล้วหวังลำดับคงที่ ลำดับใน <code>HashMap</code> ไม่รับประกัน หน้านี้เลยค้นทีละชื่อ</p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>HashMap</code> เก็บคู่กุญแจกับค่า</li>
+              <li><code>get</code> คืน <code>Option</code></li>
+              <li>กุญแจที่เป็น <code>String</code> ถูกย้ายเข้าแมป</li>
+            </ul>
+    </article>

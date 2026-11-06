@@ -1,0 +1,4 @@
+title = "รวมคะแนน"
+level = 1
+time_limit = 1
+hint = "<p>อ่าน n แล้ว push ลง <code>Vec</code> จากนั้นวนด้วย <code>for score in &amp;scores</code> บวกสะสม</p>"

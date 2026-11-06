@@ -1,0 +1,4 @@
+title = "ค้นคะแนนจากชื่อ"
+level = 2
+time_limit = 1
+hint = "<p>ใส่แต่ละบรรทัดลง <code>HashMap</code> แล้ว <code>get</code> ชื่อที่ถาม ถ้าไม่มีให้พิมพ์ missing</p>"

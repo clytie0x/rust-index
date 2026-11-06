@@ -1,0 +1,36 @@
+<article class="doc">
+      <h1>11.3 struct ที่เก็บการยืม</h1>
+
+      <p>struct ในบทที่ 5 ถือ <code>String</code> จึงเป็นเจ้าของชื่อ บางก้อนแค่แปะป้ายบนข้อความที่มีเจ้าของอยู่แล้ว เช่น ชื่อที่อยู่ในบัฟเฟอร์ที่อ่านมาทั้งก้อน struct แบบนั้นต้องบอกว่าฟิลด์ยืมของใคร</p>
+
+      <h2 id="label">ฟิลด์ที่เป็นการยืม</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="label"><pre><code>struct Label&lt;'a&gt; {
+    text: &amp;'a str,
+}
+
+fn main() {
+    let name = String::from("Ann");
+    let label = Label { text: &amp;name };
+    println!("{}", label.text);
+    println!("{}", name);
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="label" data-title="cargo run"><pre><code>Ann
+Ann</code></pre></div>
+
+      <p>ป้าย <code>'a</code> บน struct ผูกกับฟิลด์ <code>text</code> <code>label</code> ใช้ได้ไม่นานกว่า <code>name</code> หลังสร้างยังพิมพ์ <code>name</code> ได้เพราะเป็นการยืม ไม่ใช่การย้าย</p>
+
+      <div class="adm adm-warning" role="note">
+              <p class="adm-title">อย่าคืนการยืมของตัวแปรในฟังก์ชัน</p>
+              <p>ถ้าสร้าง <code>String</code> ในฟังก์ชันแล้วคืน <code>Label</code> ที่ชี้ไปหาตัวนั้น พอฟังก์ชันจบตัวแปรถูกทิ้ง ป้ายจะไม่มีของให้ชี้ rustc ไม่ให้ผ่าน ทางที่ใช้คือคืน <code>String</code> ให้ผู้เรียกเป็นเจ้าของ แล้วค่อยสร้าง <code>Label</code> ข้างนอก</p>
+            </div>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li>struct ที่เก็บ <code>&amp;str</code> ต้องมี lifetime</li>
+              <li>ก้อนนั้นอยู่ได้ไม่นานกว่าค่าที่ฟิลด์ยืม</li>
+              <li>ถ้าต้องให้ก้อนอยู่ต่อหลังจากเจ้าของเดิมตาย ให้ถือ <code>String</code> แทน</li>
+            </ul>
+    </article>

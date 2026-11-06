@@ -1,0 +1,38 @@
+<article class="doc">
+      <h1>15.3 คอมเมนต์เอกสาร</h1>
+
+      <p>คอมเมนต์ <code>//</code> คือโน้ตในไฟล์ คนที่เรียกฟังก์ชันมักไม่เลื่อนมาอ่าน คอมเมนต์เอกสารขึ้นต้นด้วยทับสามตัว วางทันทีเหนือฟังก์ชัน แล้วเครื่องมือดึงไปทำหน้าเอกสาร</p>
+
+      <h2 id="doc">ทับสามตัว</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="passed"><pre><code>/// ผ่านเมื่อคะแนนตั้งแต่ 70
+fn passed(score: i32) -&gt; bool {
+    score &gt;= 70
+}
+
+fn main() {
+    println!("{}", passed(85));
+    println!("{}", passed(69));
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="passed" data-title="cargo run"><pre><code>true
+false</code></pre></div>
+
+      <p>ข้อความใน <code>///</code> เป็นภาษาไทยได้ เพราะไม่ได้ถูกพิมพ์ออกจอ ผลของโปรแกรมยังเป็น true กับ false</p>
+
+      <h2 id="cargo-doc">เปิดหน้าเอกสาร</h2>
+
+<div class="code" data-lang="text"><pre><code>cargo doc --open</code></pre></div>
+
+      <p>cargo สร้างหน้าจากคอมเมนต์เอกสารของ crate นั้น ใช้เมื่อโปรเจกต์มีหลายโมดูลจากบทที่ 9 และอยากให้คนในห้องเปิดอ่านโดยไม่ไล่ไฟล์</p>
+
+      <p>ชุดติวนี้จบที่เครื่องมือเหล่านี้ ยังมีเรื่อง unsafe แมโครขั้นสูง และ crate ภายนอกอีกมาก ไม่จำเป็นสำหรับทางติวจากศูนย์ถึงเขียนโปรแกรมเล็กที่ตรวจได้</p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>///</code> เหนือฟังก์ชันคือเอกสาร ไม่ใช่คอมเมนต์ธรรมดา</li>
+              <li><code>cargo doc</code> รวมเอกสารของ crate</li>
+              <li>เทสกับเอกสารอยู่กับโค้ด จึงไม่หลุดจากพฤติกรรมจริง</li>
+            </ul>
+    </article>

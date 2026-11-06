@@ -1,0 +1,27 @@
+<article class="doc">
+      <h1>บทที่ 11 lifetime แบบค่อยๆ</h1>
+
+      <p>บทที่ 2 ยืมค่าแล้วใช้ให้จบในฟังก์ชัน บทนี้คือตอนที่ฟังก์ชันคืนการยืมออกไป rustc ต้องรู้ว่าค่ายืมมาจากไหน</p>
+
+            <h2 id="in-this-chapter">ในบทนี้</h2>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>หน้า</th><th>ได้อะไร</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><a href="why.html">11.1 ทำไมต้องมี lifetime</a></td><td>เห็นว่าคืนข้อความที่เป็นเจ้าของได้เสมอ และคืนการยืมได้เมื่อบอกที่มา</td></tr><tr><td><a href="annotate.html">11.2 เขียน lifetime ให้ฟังก์ชัน</a></td><td>ใส่ป้าย 'a เมื่อคืนการยืม และรู้ว่าเมื่อไหร่ไม่ต้องเขียน</td></tr><tr><td><a href="hold.html">11.3 struct ที่เก็บการยืม</a></td><td>วาง &str ไว้ใน struct เมื่อก้อนนั้นไม่ควรเป็นเจ้าของข้อความ</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2 id="checklist">ผ่านบทนี้เมื่อ</h2>
+
+            <ul class="task-list">
+              <li><label><input type="checkbox"><span>อธิบายได้ว่าทำไมคืน <code>&amp;str</code> จากสองตัวต้องบอกที่มา</span></label></li>
+              <li><label><input type="checkbox"><span>เขียน <code>'a</code> ให้ฟังก์ชันที่คืนการยืมจากอาร์กิวเมนต์</span></label></li>
+              <li><label><input type="checkbox"><span>เก็บ <code>&amp;str</code> ไว้ใน struct โดยใส่ lifetime</span></label></li>
+              <li><label><input type="checkbox"><span>บอกได้ว่า rustc ขอ lifetime เมื่อคืนการยืมแต่ไม่บอกว่ามาจากตัวไหน</span></label></li>
+            </ul>
+    </article>

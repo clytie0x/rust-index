@@ -1,0 +1,54 @@
+<article class="doc">
+      <h1>11.2 เขียน lifetime ให้ฟังก์ชัน</h1>
+
+      <p>ป้าย lifetime ผูกการยืมขาเข้ากับขาออก ผลที่คืนใช้ได้ไม่นานกว่าค่าที่มันชี้ไป</p>
+
+      <h2 id="same">ป้ายเดียวกันทั้งสามที่</h2>
+
+<div class="code" data-lang="rust" data-linenums data-annotate data-test="longer"><pre><code>fn longer&lt;'a&gt;(a: &amp;'a str, b: &amp;'a str) -&gt; &amp;'a str {
+    if a.len() &gt;= b.len() {
+        a
+    } else {
+        b
+    }
+}
+
+fn main() {
+    let ann = String::from("Ann");
+    let mali = String::from("Mali");
+    let text = longer(&amp;ann, &amp;mali);
+    println!("{text}");
+}</code></pre></div>
+
+            <ol class="anno-list">
+              <li><code>'a</code> เป็นชื่อป้าย ใส่หลังชื่อฟังก์ชันเหมือนชื่อชนิดของ generic</li>
+              <li>ทั้ง <code>a</code> <code>b</code> และค่าที่คืนใช้ป้ายเดียวกัน ผลจึงอยู่ได้ตราบใดที่ทั้งสองตัวยังอยู่</li>
+              <li>ข้อความในเครื่องหมายคำพูดก็ส่งได้ เพราะมีชีวิตยาวพอ ตัวอย่างนี้ใช้ <code>String</code> เพื่อให้เห็นว่าผลยืมของใน <code>main</code></li>
+            </ol>
+
+      <div class="code" data-lang="output" data-for="longer" data-title="cargo run"><pre><code>Mali</code></pre></div>
+
+      <h2 id="elision">บางลายเซ็น rustc เติมให้</h2>
+
+      <p>ถ้ามีตัวยืมเข้าตัวเดียวและคืนตัวยืมออกหนึ่งตัว rustc เดาได้ว่าขาออกมาจากขาเข้า ไม่ต้องเขียนป้ายเอง กฎนี้เรียกว่า lifetime elision</p>
+
+<div class="code" data-lang="rust" data-linenums data-test="first"><pre><code>fn first_word(text: &amp;str) -&gt; &amp;str {
+    text.split_whitespace().next().unwrap_or("")
+}
+
+fn main() {
+    println!("{}", first_word("Ann Lee"));
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="first" data-title="cargo run"><pre><code>Ann</code></pre></div>
+
+      <p>ฟังก์ชัน <code>longer</code> เดาไม่ได้เพราะมีสองทางเข้า ฟังก์ชัน <code>first_word</code> มีทางเข้าทางเดียว จึงละป้ายได้ ถ้าไม่แน่ให้เขียนป้ายเอง โปรแกรมยังหมายถึงอย่างเดียวกัน</p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>'a</code> บอกว่าการยืมขาออกมาจากการยืมขาเข้าชุดนั้น</li>
+              <li>ป้ายไม่ได้เปลี่ยนระยะจริงของค่า มันแค่ให้ลายเซ็นพูดความจริง</li>
+              <li>ตัวยืมเข้าตัวเดียวแล้วคืนตัวยืม มักไม่ต้องเขียนป้าย</li>
+            </ul>
+    </article>

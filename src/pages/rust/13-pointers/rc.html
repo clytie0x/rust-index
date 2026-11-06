@@ -1,0 +1,66 @@
+<article class="doc">
+      <h1>13.2 Rc</h1>
+
+      <p>เจ้าของคนเดียวจากบทที่ 2 ครอบคลุมงานส่วนมาก เมื่อสองส่วนของโปรแกรมต้องใช้ข้อความเดียวกันต่อ และไม่มีใครควรเป็นเจ้าของคนเดียว <code>Rc</code> นับว่ามีกี่คนถืออยู่ ตัวสุดท้ายที่ปล่อยคือคนเก็บก้อนทิ้ง</p>
+
+      <p><code>Rc</code> ใช้ในเธรดเดียว งานข้ามเธรดอยู่ในบทที่ 14</p>
+
+      <h2 id="clone">เพิ่มเจ้าของด้วย clone</h2>
+
+<div class="code" data-lang="rust" data-linenums data-annotate data-test="share"><pre><code>use std::rc::Rc;
+
+fn main() {
+    let name = Rc::new(String::from("Ann"));
+    let also = Rc::clone(&amp;name);
+    println!("{name}");
+    println!("{also}");
+    println!("{}", Rc::strong_count(&amp;name));
+}</code></pre></div>
+
+            <ol class="anno-list">
+              <li><code>Rc::new</code> ห่อ <code>String</code> เริ่มมีเจ้าของหนึ่งคน</li>
+              <li><code>Rc::clone</code> ไม่ได้คัดลอกข้อความ แค่นับเจ้าของเพิ่ม ชื่อ <code>also</code> ชี้ก้อนเดิม</li>
+              <li><code>strong_count</code> คือ 2 เพราะมี <code>name</code> กับ <code>also</code></li>
+            </ol>
+
+      <div class="code" data-lang="output" data-for="share" data-title="cargo run"><pre><code>Ann
+Ann
+2</code></pre></div>
+
+      <h2 id="break-it">ลองทำให้พัง</h2>
+
+      <p><code>*</code> จะดึง <code>String</code> ออกมาเป็นเจ้าของคนเดียวไม่ได้ เพราะยังมีตัวนับเจ้าของอยู่ ให้ใช้ก้อนผ่าน <code>Rc</code> หรือ <code>clone</code> ข้อความถ้าต้องการ <code>String</code> ของตัวเอง</p>
+
+<div class="code" data-lang="rust" data-linenums><pre><code>use std::rc::Rc;
+
+fn main() {
+    let name = Rc::new(String::from("Ann"));
+    let moved = *name;
+    println!("{moved}");
+}</code></pre></div>
+
+<div class="code" data-lang="rustc"><pre><code>error[E0507]: cannot move out of an `Rc`
+ --&gt; main.rs:5:17
+  |
+5 |     let moved = *name;
+  |                 ^^^^^ move occurs because value has type `String`, which does not implement the `Copy` trait
+  |
+help: consider removing the dereference here
+  |
+5 -     let moved = *name;
+5 +     let moved = name;
+  |
+help: consider cloning the value if the performance cost is acceptable
+  |
+5 -     let moved = *name;
+5 +     let moved = name.clone();
+  |</code></pre></div>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>Rc</code> ให้มีเจ้าของหลายคนในเธรดเดียว</li>
+              <li><code>Rc::clone</code> เพิ่มตัวนับ ไม่ได้สำเนาข้างในเสมอไป</li>
+              <li>ดึงของข้างในออกด้วยการย้ายไม่ได้</li>
+            </ul>
+    </article>

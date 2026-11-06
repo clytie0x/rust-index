@@ -1,0 +1,36 @@
+<article class="doc">
+      <h1>13.3 RefCell</h1>
+
+      <p>บางก้อนถูกส่งเป็นการยืมแบบอ่าน แต่ข้างในยังต้องบวกคะแนน <code>RefCell</code> เลื่อนกฎยืมไปตรวจตอนรัน เรียกว่า interior mutability แก้ข้างในได้แม้ตัวนอกไม่ใช่ <code>mut</code></p>
+
+      <h2 id="borrow">ขอยืมตอนรัน</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="cell"><pre><code>use std::cell::RefCell;
+
+fn main() {
+    let score = RefCell::new(80);
+    *score.borrow_mut() += 5;
+    println!("{}", score.borrow());
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="cell" data-title="cargo run"><pre><code>85</code></pre></div>
+
+      <ul>
+      <li><code>borrow_mut</code> ขอยืมมาแก้ ต้องมีครั้งเดียวในช่วงที่ยังไม่คืน</li>
+      <li><code>borrow</code> ขอยืมมาอ่าน พิมพ์ค่าข้างในได้</li>
+      <li>ตัวแปร <code>score</code> ไม่ได้เป็น <code>mut</code> เพราะกล่องเป็นคนถือสิทธิ์แก้</li>
+      </ul>
+
+      <div class="adm adm-warning" role="note">
+              <p class="adm-title">สอง borrow_mut พร้อมกันจะหยุดตอนรัน</p>
+              <p>rustc ไม่ได้กันให้ตอนคอมไพล์ ถ้าเรียก <code>borrow_mut</code> ซ้อนโดยยังไม่ปล่อยครั้งแรก โปรแกรมจะ panic ใช้เมื่อโครงสร้างต้องแก้ผ่านที่ที่มองจากนอกเป็นการยืมแบบอ่าน และอย่าถือการยืมค้างไว้</p>
+            </div>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>RefCell</code> ย้ายการตรวจการยืมไปตอนรัน</li>
+              <li><code>borrow_mut</code> แก้ <code>borrow</code> อ่าน</li>
+              <li>อย่าขอยืมแบบแก้ซ้อนกัน</li>
+            </ul>
+    </article>

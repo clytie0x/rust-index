@@ -1,0 +1,42 @@
+<article class="doc">
+      <h1>6.2 Result</h1>
+
+      <p>ข้อความที่ผู้ใช้พิมพ์อาจไม่ใช่ตัวเลข <code>Result</code> คือ enum สองทางเหมือน <code>Option</code> แต่ทางที่พลาดถือเหตุผลไว้ <code>Ok</code> คือสำเร็จ <code>Err</code> คือพลาด</p>
+
+      <h2 id="parse">parse คืน Result</h2>
+
+      <p><code>parse</code> แปลงข้อความเป็นตัวเลข ถ้าแปลงไม่ได้จะได้ <code>Err</code> ที่บรรจุชนิด error ของการแปลง จำนวนเต็ม เราไม่ต้องอ่านข้างใน error ก็ได้ แค่แยกทาง</p>
+
+<div class="code" data-lang="rust" data-linenums data-test="parse"><pre><code>fn parse_score(text: &amp;str) -&gt; Result&lt;i32, std::num::ParseIntError&gt; {
+    text.trim().parse()
+}
+
+fn show(text: &amp;str) {
+    match parse_score(text) {
+        Ok(n) =&gt; println!("{n}"),
+        Err(_) =&gt; println!("bad"),
+    }
+}
+
+fn main() {
+    show("85");
+    show("nope");
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="parse" data-title="cargo run"><pre><code>85
+bad</code></pre></div>
+
+      <ul>
+      <li><code>trim</code> ตัดช่องว่างหัวท้ายก่อนแปลง</li>
+      <li><code>Err(_)</code> รับ error ไว้แต่ไม่ใช้ชื่อ เพราะหน้านี้สนใจแค่ว่าพลาด</li>
+      <li>ชนิดหลังจุลภาคของ <code>Result</code> คือชนิดของความพลาด ตรงนี้คือ error จากการแปลงจำนวนเต็ม</li>
+      </ul>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>Result</code> มี <code>Ok</code> กับ <code>Err</code></li>
+              <li><code>parse</code> คืน <code>Result</code> ไม่คืนตัวเลขตรงๆ</li>
+              <li>แยกทางด้วย <code>match</code> แทนการ <code>unwrap</code> เมื่อข้อมูลอาจเสีย</li>
+            </ul>
+    </article>

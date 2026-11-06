@@ -1,0 +1,69 @@
+<article class="doc">
+      <h1>15.2 cargo test</h1>
+
+      <p>ใส่ <code>assert_eq!</code> ใน <code>main</code> ได้ แต่ปนกับโปรแกรมจริง <code>cargo test</code> รันฟังก์ชันที่แปะ <code>#[test]</code> ให้ และไม่รัน <code>main</code></p>
+
+      <h2 id="attr">ฟังก์ชันทดสอบ</h2>
+
+      <p>บล็อกนี้ยังไม่ถูกตัวตรวจของเว็บคอมไพล์เป็นโปรแกรม เพราะตัวตรวจรัน <code>main</code> อย่างเดียว โครงสร้างนี้คือสิ่งที่ <code>cargo test</code> มองหา <code>#[cfg(test)]</code> ทำให้โมดูลทดสอบไม่อยู่ในโปรแกรมตอน <code>cargo run</code></p>
+
+<div class="code" data-lang="rust" data-linenums><pre><code>fn band(score: i32) -&gt; &amp;'static str {
+    if score &gt;= 80 {
+        "A"
+    } else if score &gt;= 70 {
+        "B"
+    } else {
+        "C"
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::band;
+
+    #[test]
+    fn eighty_is_a() {
+        assert_eq!(band(85), "A");
+    }
+
+    #[test]
+    fn seventy_is_b() {
+        assert_eq!(band(70), "B");
+    }
+}</code></pre></div>
+
+      <p>ตัวอย่างที่ตัวตรวจรันได้คือการเรียกตรวจจาก <code>main</code> ผลเหมือนเทสผ่าน แล้วพิมพ์ ok</p>
+
+<div class="code" data-lang="rust" data-linenums data-test="checked"><pre><code>fn band(score: i32) -&gt; &amp;'static str {
+    if score &gt;= 80 {
+        "A"
+    } else if score &gt;= 70 {
+        "B"
+    } else {
+        "C"
+    }
+}
+
+fn main() {
+    assert_eq!(band(85), "A");
+    assert_eq!(band(70), "B");
+    println!("ok");
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="checked" data-title="cargo run"><pre><code>ok</code></pre></div>
+
+      <h2 id="cmd">คำสั่ง</h2>
+
+<div class="code" data-lang="text"><pre><code>cargo test
+cargo test eighty</code></pre></div>
+
+      <p>คำสั่งแรกวิ่งทุกเทส คำสั่งที่สองเลือกชื่อที่มีคำว่า eighty <code>cargo fmt</code> จัดบรรทัดให้เข้าแบบ rustfmt <code>cargo clippy</code> เตือนสไตล์เพิ่มจาก rustc ไม่บังคับในชุดนี้ แต่ใช้ได้เมื่อโปรเจกต์เริ่มยาว</p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>#[test]</code> แปะฟังก์ชันที่ <code>cargo test</code> จะรัน</li>
+              <li><code>#[cfg(test)]</code> กันไม่ให้เทสไปกับโปรแกรมจริง</li>
+              <li><code>cargo test</code> ไม่ได้รัน <code>main</code></li>
+            </ul>
+    </article>

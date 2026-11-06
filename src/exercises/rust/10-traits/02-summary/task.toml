@@ -1,0 +1,4 @@
+title = "สรุปนักเรียน"
+level = 2
+time_limit = 1
+hint = "<p>ทำ trait ที่มีเมธอดคืน <code>String</code> แล้ว <code>format!</code> ชื่อกับคะแนนคั่นด้วยเว้นวรรค</p>"

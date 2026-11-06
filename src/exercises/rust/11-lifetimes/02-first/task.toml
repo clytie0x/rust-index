@@ -1,0 +1,4 @@
+title = "คำแรก"
+level = 1
+time_limit = 1
+hint = "<p><code>split_whitespace().next()</code> คืน <code>Option</code> ถ้าไม่มีคำให้พิมพ์ none</p>"

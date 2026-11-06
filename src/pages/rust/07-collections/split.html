@@ -1,0 +1,33 @@
+<article class="doc">
+      <h1>7.1 แตกข้อความ</h1>
+
+      <p>แบบฝึกหัดตั้งแต่บทที่ 1 อ่านบรรทัดแล้วตัดคำอยู่แล้ว หน้านี้ทำให้เห็นเครื่องมือนั้นตรงๆ <code>split_whitespace</code> แตกตรงช่องว่างทุกชนิด และยุบช่องว่างที่ติดกันเหลือจุดตัดเดียว</p>
+
+      <h2 id="words">นับคำ</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="words"><pre><code>fn main() {
+    let line = "Ann 85 Mali 90";
+    let mut count = 0;
+    for word in line.split_whitespace() {
+        count += 1;
+        println!("{word}");
+    }
+    println!("count = {count}");
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="words" data-title="cargo run"><pre><code>Ann
+85
+Mali
+90
+count = 4</code></pre></div>
+
+      <p>แต่ละ <code>word</code> เป็น <code>&amp;str</code> ยืมจาก <code>line</code> ไม่ได้สร้าง <code>String</code> ใหม่ทุกคำ ถ้าต้องเก็บคำไว้หลัง <code>line</code> ตาย ให้ <code>to_string</code> ซึ่งหน้า HashMap ใช้แบบนั้นกับชื่อ</p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>split_whitespace</code> ให้ทีละคำแบบ <code>&amp;str</code></li>
+              <li>ช่องว่างติดกันนับเป็นตัวตัดอันเดียว</li>
+              <li>อยากเป็นเจ้าของคำนั้นใช้ <code>to_string</code></li>
+            </ul>
+    </article>

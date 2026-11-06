@@ -1,0 +1,42 @@
+<article class="doc">
+      <h1>13.1 Box</h1>
+
+      <p><code>Box</code> ถือค่าบน heap แล้วเหลือตัวชี้ขนาดคงที่บนสแตก ใช้เมื่อชนิดต้องบรรจุตัวเอง เช่น ลิสต์ที่แต่ละข้อถือคะแนนและลิสต์ที่เหลือ ถ้าใส่ <code>List</code> ตรงๆ ใน <code>List</code> ขนาดไม่รู้จบ rustc ไม่ให้สร้าง</p>
+
+      <h2 id="list">ลิสต์ที่ชี้ตัวเอง</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="box"><pre><code>enum List {
+    Empty,
+    More(i32, Box&lt;List&gt;),
+}
+
+fn sum(list: &amp;List) -&gt; i32 {
+    match list {
+        List::Empty =&gt; 0,
+        List::More(n, rest) =&gt; n + sum(rest),
+    }
+}
+
+fn main() {
+    let scores = List::More(70, Box::new(List::More(80, Box::new(List::Empty))));
+    println!("{}", sum(&amp;scores));
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="box" data-title="cargo run"><pre><code>150</code></pre></div>
+
+      <ul>
+      <li><code>Box::new</code> ย้ายค่าไป heap แล้ว enum เก็บกล่องซึ่งขนาดรู้ได้</li>
+      <li><code>match</code> แกะ <code>More</code> ได้ตัวเลขกับลิสต์ที่เหลือ</li>
+      <li>รวมได้ 150 จาก 70 กับ 80 ทาง <code>Empty</code> คือฐานของ recursion</li>
+      </ul>
+
+      <p>ค่าธรรมดาอย่าง <code>i32</code> ไม่ต้องใส่ <code>Box</code> กล่องมีประโยชน์เมื่อโครงสร้างต้องอ้างตัวเอง หรือเมื่ออยากย้ายก้อนใหญ่โดยไม่คัดลอกทั้งก้อนในที่นี้ดูแค่กรณีอ้างตัวเอง</p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>Box&lt;T&gt;</code> วาง <code>T</code> บน heap</li>
+              <li>enum ที่อ้างตัวเองใส่ <code>Box</code> ที่ทางอ้างตัวเอง</li>
+              <li>ของเล็กที่ใช้ครั้งเดียวไม่ต้องกล่อง</li>
+            </ul>
+    </article>

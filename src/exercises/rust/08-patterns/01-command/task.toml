@@ -1,0 +1,4 @@
+title = "คำสั่งสั้น"
+level = 1
+time_limit = 1
+hint = "<p><code>match</code> ข้อความ <code>pass</code> กับ <code>fail</code> แล้วให้ <code>_</code> พิมพ์ unknown</p>"
