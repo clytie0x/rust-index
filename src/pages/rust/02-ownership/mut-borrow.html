@@ -1,0 +1,97 @@
+<article class="doc">
+      <h1>2.3 ยืมแบบแก้ได้</h1>
+
+      <p>การยืมด้วย <code>&amp;</code> อ่านได้อย่างเดียว ถ้าฟังก์ชันต้องแก้ค่าของเจ้าของ เช่น บวกคะแนน หรือต่อท้ายชื่อ ให้ยืมแบบแก้ได้ เขียนว่า <code>&amp;mut</code></p>
+
+      <h2 id="score">บวกคะแนนผ่าน &amp;mut</h2>
+
+      <div class="code" data-lang="rust" data-linenums data-annotate data-test="bonus"><pre><code>fn add_bonus(score: &amp;mut i32) { // (1)!
+    *score += 5; // (2)!
+}
+
+fn shout(name: &amp;mut String) {
+    name.push('!'); // (3)!
+}
+
+fn main() {
+    let mut score = 80; // (4)!
+    add_bonus(&amp;mut score);
+    println!("{score}");
+
+    let mut name = String::from("Ann");
+    shout(&amp;mut name);
+    println!("{name}");
+}
+</code></pre></div>
+      <ol class="anno-list">
+        <li><code>&amp;mut i32</code> คือยืมจำนวนเต็มมาแก้ได้</li>
+        <li><code>*score</code> คือค่าที่อยู่ปลายทางของการยืม ต้องมี <code>*</code> เพราะ <code>score</code> ในฟังก์ชันนี้ไม่ใช่ตัวเลขเอง แต่เป็นตัวยืม</li>
+        <li>เมธอดอย่าง <code>push</code> เรียกบนตัวยืมได้ตรงๆ ไม่ต้องใส่ <code>*</code></li>
+        <li>เจ้าของต้องเป็น <code>let mut</code> ถึงจะยืมแบบ <code>&amp;mut</code> ได้</li>
+      </ol>
+
+      <div class="code" data-lang="output" data-for="bonus" data-title="cargo run"><pre><code>85
+Ann!
+</code></pre></div>
+
+      <p>สูตร <code>read_line(&amp;mut line)</code> ในหน้า 1.3 คือการยืมแบบนี้ <code>read_line</code> เขียนข้อความที่อ่านได้ลงใน <code>String</code> ของเรา</p>
+
+      <h2 id="break-it">ลองทำให้พัง</h2>
+
+      <p>แบบแรก ลืม <code>mut</code> ที่เจ้าของ แล้วเรียกเมธอดที่ต้องแก้ค่า</p>
+
+      <div class="code" data-lang="rust" data-linenums><pre><code>fn main() {
+    let name = String::from("Ann");
+    name.push('!');
+    println!("{name}");
+}
+</code></pre></div>
+
+      <div class="code" data-lang="rustc"><pre><code>error[E0596]: cannot borrow `name` as mutable, as it is not declared as mutable
+ --&gt; main.rs:3:5
+  |
+3 |     name.push('!');
+  |     ^^^^ cannot borrow as mutable
+  |
+help: consider changing this to be mutable
+  |
+2 |     let mut name = String::from("Ann");
+  |         +++
+</code></pre></div>
+
+      <p>แบบสอง ยืมแบบแก้ได้สองชื่อพร้อมกัน ทั้งที่ยังใช้ชื่อแรกไม่เสร็จ</p>
+
+      <div class="code" data-lang="rust" data-linenums><pre><code>fn main() {
+    let mut score = 80;
+    let a = &amp;mut score;
+    let b = &amp;mut score;
+    *a += 1;
+    *b += 1;
+    println!("{score}");
+}
+</code></pre></div>
+
+      <div class="code" data-lang="rustc"><pre><code>error[E0499]: cannot borrow `score` as mutable more than once at a time
+ --&gt; main.rs:4:13
+  |
+3 |     let a = &amp;mut score;
+  |             ---------- first mutable borrow occurs here
+4 |     let b = &amp;mut score;
+  |             ^^^^^^^^^^ second mutable borrow occurs here
+5 |     *a += 1;
+  |     ------- first borrow later used here
+</code></pre></div>
+
+      <p>กฎสั้นๆ คือ ช่วงที่ยืมแบบแก้ได้อยู่ จะมีผู้ยืมแบบแก้ได้แค่คนเดียว และจะไม่ให้ใครยืมอ่านคู่กันในช่วงนั้น ตัวอย่างนี้ <code>a</code> ยังถูกใช้ที่บรรทัด 5 จึงยังยืมไม่จบ พอสร้าง <code>b</code> คาบเกี่ยวกัน rustc จึงไม่ให้ผ่าน</p>
+
+      <p>แก้ด้วยการใช้งาน <code>a</code> ให้จบก่อน แล้วค่อยสร้าง <code>b</code> หรือบวกบน <code>score</code> ทีละครั้งโดยไม่ถือการยืมสองอันพร้อมกัน</p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+        <li><code>&amp;mut</code> คือยืมมาแก้</li>
+        <li>เจ้าของต้องเป็น <code>mut</code> และจุดที่ส่งต่อเขียน <code>&amp;mut ชื่อ</code></li>
+        <li>จำนวนเต็มที่ถูกยืม แก้ด้วย <code>*ชื่อ</code></li>
+        <li>ยืมแบบแก้ได้พร้อมกันได้ทีละที่</li>
+      </ul>
+    </article>

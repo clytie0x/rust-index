@@ -1,0 +1,105 @@
+<article class="doc">
+      <h1>3.2 if และ loop</h1>
+
+      <p>หน้านี้เลือกทางด้วยเงื่อนไข แล้ววนทำซ้ำ สองอย่างนี้พอสำหรับโจทย์นับและตัดเกรดช่วงแรก</p>
+
+      <h2 id="if">if เป็นนิพจน์</h2>
+
+      <p><code>if</code> ใน Rust ให้ค่ากลับได้ แขนที่เลือกต้องให้ค่าชนิดเดียวกัน เงื่อนไขต้องเป็น <code>bool</code> ไม่ใช่ตัวเลข</p>
+
+      <div class="code" data-lang="rust" data-linenums data-test="grade"><pre><code>fn grade(score: i32) -&gt; &amp;'static str {
+    if score &gt;= 80 {
+        "A"
+    } else if score &gt;= 70 {
+        "B"
+    } else {
+        "C"
+    }
+}
+
+fn main() {
+    println!("{}", grade(85));
+    println!("{}", grade(70));
+    println!("{}", grade(61));
+}
+</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="grade" data-title="cargo run"><pre><code>A
+B
+C
+</code></pre></div>
+
+      <p>แต่ละแขนไม่มี <code>;</code> เพราะข้อความเกรดคือค่าที่ <code>if</code> ส่งให้ฟังก์ชันคืนต่อ <code>&amp;'static str</code> คือข้อความที่ยืมมาและมีชีวิตตลอดทั้งโปรแกรม ข้อความในเครื่องหมายคำพูดคู่เป็นแบบนี้</p>
+
+      <p><code>&gt;=</code> อ่านว่ามากกว่าหรือเท่ากับ เกรด A เริ่มที่ 80 และ B เริ่มที่ 70 คะแนนที่น้อยกว่า 70 ตกไปแขน <code>else</code></p>
+
+      <h2 id="eq">อย่าใช้ = ในเงื่อนไข</h2>
+
+      <div class="code" data-lang="rust" data-linenums><pre><code>fn main() {
+    let score = 70;
+    if score = 80 {
+        println!("A");
+    }
+}
+</code></pre></div>
+
+      <div class="code" data-lang="rustc"><pre><code>error[E0308]: mismatched types
+ --&gt; main.rs:3:8
+  |
+3 |     if score = 80 {
+  |        ^^^^^^^^^^ expected `bool`, found `()`
+  |
+help: you might have meant to compare for equality
+  |
+3 |     if score == 80 {
+  |               +
+</code></pre></div>
+
+      <p><code>=</code> คือการใส่ค่า ไม่ใช่การถามว่าเท่ากัน การถามใช้ <code>==</code> rustc เติม <code>=</code> ให้อีกตัวในบรรทัด help</p>
+
+      <h2 id="while">while</h2>
+
+      <p><code>while</code> ทำซ้ำตราบเท่าที่เงื่อนไขยังเป็น <code>true</code></p>
+
+      <div class="code" data-lang="rust" data-linenums data-test="while-n"><pre><code>fn main() {
+    let mut n = 1;
+    while n &lt;= 3 {
+        println!("{n}");
+        n += 1;
+    }
+}
+</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="while-n" data-title="cargo run"><pre><code>1
+2
+3
+</code></pre></div>
+
+      <p><code>n += 1</code> คือบวกหนึ่งแล้วใส่กลับ ถ้าลืมบรรทัดนี้ <code>n</code> เป็น 1 ตลอด ลูปไม่จบ โปรแกรมแบบนั้นห้ามใส่ในตัวอย่างที่ให้ตัวตรวจรัน</p>
+
+      <h2 id="for">for กับช่วงตัวเลข</h2>
+
+      <p>ถ้ารู้อยู่แล้วว่าจะเดินจาก 1 ถึง 3 ให้ใช้ <code>for</code> ช่วง <code>1..=3</code> รวมปลายทั้งสองข้าง</p>
+
+      <div class="code" data-lang="rust" data-linenums data-test="for-n"><pre><code>fn main() {
+    for i in 1..=3 {
+        println!("i = {i}");
+    }
+}
+</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="for-n" data-title="cargo run"><pre><code>i = 1
+i = 2
+i = 3
+</code></pre></div>
+
+      <p><code>1..3</code> ไม่มี <code>=</code> จะได้แค่ 1 กับ 2 ไม่รวม 3 โจทย์ที่บอกตั้งแต่ 1 ถึง n ส่วนใหญ่ใช้ <code>1..=n</code></p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+        <li><code>if</code> ต้องการ <code>bool</code> เทียบเท่าใช้ <code>==</code></li>
+        <li>แขนของ <code>if</code> ที่ใช้เป็นค่าคืน ห้ามใส่ <code>;</code> ท้ายนิพจน์</li>
+        <li><code>while</code> วนตามเงื่อนไข <code>for i in 1..=n</code> วนรวม n</li>
+      </ul>
+    </article>

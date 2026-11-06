@@ -1,0 +1,67 @@
+<article class="doc">
+      <h1>3.3 match</h1>
+
+      <p><code>match</code> แยกทางตามค่า แต่บังคับให้คิดถึงทุกกรณีที่ชนิดนั้นเป็นไปได้ ใช้เมื่อ <code>if</code> เริ่มมีหลายช่วง และกลัวลืมช่วงใดช่วงหนึ่ง</p>
+
+      <div class="code" data-lang="rust" data-linenums data-test="label"><pre><code>fn label(score: i32) -&gt; &amp;'static str {
+    match score {
+        80..=100 =&gt; "A",
+        70..=79 =&gt; "B",
+        _ =&gt; "C",
+    }
+}
+
+fn main() {
+    println!("{}", label(85));
+    println!("{}", label(70));
+    println!("{}", label(40));
+}
+</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="label" data-title="cargo run"><pre><code>A
+B
+C
+</code></pre></div>
+
+      <ul>
+        <li>แต่ละแขนเขียน <code>รูปแบบ =&gt; ค่า</code> แล้วตามด้วยจุลภาค</li>
+        <li><code>80..=100</code> คือช่วงที่รวม 80 และรวม 100</li>
+        <li><code>_</code> คือที่เหลือทั้งหมด ในตัวอย่างนี้คะแนนที่ต่ำกว่า 70 และคะแนนที่เกิน 100 ตกมาที่ <code>C</code></li>
+      </ul>
+
+      <div class="adm adm-note" role="note">
+        <p class="adm-title">แขนสุดท้ายของฟังก์ชันนี้ไม่มี ;</p>
+        <p><code>match</code> ทั้งก้อนคือนิพจน์ที่ฟังก์ชันคืน หลังปีกกาปิดของ <code>match</code> จึงไม่มี <code>;</code> เหมือนบรรทัด <code>math + science</code> ในหน้า 3.1</p>
+      </div>
+
+      <h2 id="break-it">ลองทำให้ไม่ครบ</h2>
+
+      <div class="code" data-lang="rust" data-linenums><pre><code>fn main() {
+    let score = 80;
+    match score {
+        80 =&gt; println!("A"),
+    }
+}
+</code></pre></div>
+
+      <div class="code" data-lang="rustc"><pre><code>error[E0004]: non-exhaustive patterns: `i32::MIN..=79_i32` and `81_i32..=i32::MAX` not covered
+ --&gt; main.rs:3:11
+  |
+3 |     match score {
+  |           ^^^^^ patterns `i32::MIN..=79_i32` and `81_i32..=i32::MAX` not covered
+  |
+  = note: the matched value is of type `i32`
+</code></pre></div>
+
+      <p><code>i32</code> มีค่าได้อีกเยอะนอกจาก 80 rustc เลยไม่ให้ผ่านจนกว่าจะครอบคลุม มันยังเสนอแขนเติมให้ในข้อความ help ซึ่งตัดออกจากกล่องนี้ ทางที่อ่านง่ายที่สุดในช่วงเริ่มคือใส่แขน <code>_</code></p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+        <li><code>match</code> ต้องครบทุกค่า หรือมี <code>_</code> รับส่วนที่เหลือ</li>
+        <li>ช่วงตัวเลขใช้ <code>..=</code> เมื่ออยากรวมปลายทั้งสองข้าง</li>
+        <li>ใช้แทน <code>if</code> ที่แตกเป็นหลายช่วงได้ แต่ยังไม่จำเป็นทุกครั้ง</li>
+      </ul>
+
+      <p>พอเขียน <code>match</code> ตัดเกรดได้แล้ว ไปทำแบบฝึกหัดท้ายบท</p>
+    </article>

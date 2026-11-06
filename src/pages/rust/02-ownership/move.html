@@ -1,0 +1,73 @@
+<article class="doc">
+      <h1>2.1 move กับ Copy</h1>
+
+      <p>พอมีตัวแปรมากกว่าหนึ่งชื่อ คำถามแรกคือค่าถูกก๊อปปี้ หรือถูกย้ายไปอยู่กับชื่อใหม่ Rust ตอบไม่เหมือนกันทุกชนิด</p>
+
+      <h2 id="copy">จำนวนเต็มถูกก๊อปปี้</h2>
+
+      <div class="code" data-lang="rust" data-linenums data-test="copy-int"><pre><code>fn main() {
+    let a = 10;
+    let b = a;
+    println!("{a} {b}");
+}
+</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="copy-int" data-title="cargo run"><pre><code>10 10
+</code></pre></div>
+
+      <p><code>i32</code> เล็กและก๊อปปี้ได้ครบด้วยการก็อปบิต หลัง <code>let b = a</code> ทั้งสองชื่อยังใช้ได้ ชนิดแบบนี้เรียกว่ามีพฤติกรรม Copy</p>
+
+      <h2 id="move">String ถูกย้าย</h2>
+
+      <p><code>String</code> ถือก้อนข้อความในหน่วยความจำที่โตได้ ถ้าก๊อปปี้ทั้งก้อนทุกครั้งที่ส่งต่อ จะช้าและงงว่าก้อนไหนเป็นของจริง Rust เลย<strong>ย้าย (move)</strong> ความเป็นเจ้าของไปชื่อใหม่ ชื่อเก่าใช้ไม่ได้</p>
+
+      <div class="code" data-lang="rust" data-linenums data-test="moved"><pre><code>fn main() {
+    let name = String::from("Ann");
+    let other = name;
+    println!("{other}");
+}
+</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="moved" data-title="cargo run"><pre><code>Ann
+</code></pre></div>
+
+      <p>หลังบรรทัด <code>let other = name</code> เจ้าของคือ <code>other</code> โปรแกรมนี้จึงพิมพ์ผ่านชื่อใหม่ชื่อเดียว</p>
+
+      <h2 id="break-it">ลองใช้ชื่อเดิมหลังย้าย</h2>
+
+      <div class="code" data-lang="rust" data-linenums><pre><code>fn main() {
+    let name = String::from("Ann");
+    let other = name;
+    println!("{name}");
+    println!("{other}");
+}
+</code></pre></div>
+
+      <div class="code" data-lang="rustc"><pre><code>error[E0382]: borrow of moved value: `name`
+ --&gt; main.rs:4:15
+  |
+2 |     let name = String::from("Ann");
+  |         ---- move occurs because `name` has type `String`, which does not implement the `Copy` trait
+3 |     let other = name;
+  |                 ---- value moved here
+4 |     println!("{name}");
+  |               ^^^^^^ value borrowed here after move
+</code></pre></div>
+
+      <p>อ่านสามจุดบนลูกศรในกล่องนี้ก็พอ ค่าถูกย้ายที่บรรทัด 3 และถูกใช้ต่อที่บรรทัด 4 ชนิด <code>String</code> ไม่ได้ถูกก๊อปปี้เอง</p>
+
+      <p>rustc ยังเสนอให้เรียก <code>clone</code> เพื่อก๊อปปี้ข้อความทั้งก้อน ชุดนี้ยังไม่ใช้ทางนั้น ถ้าต้องการทั้งสองชื่อให้อ่านแบบยืมในหน้าถัดไป จะไม่ต้องก๊อปปี้</p>
+
+      <div class="adm adm-note" role="note">
+        <p class="adm-title">คำว่า trait ในข้อความ error</p>
+        <p>trait คือชุดความสามารถที่ชนิดหนึ่งมี ตอนนี้จำแค่ประโยคนี้ <code>String</code> ไม่มี Copy จึงถูกย้าย ไม่ถูกก๊อปปี้</p>
+      </div>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+        <li><code>i32</code> และชนิดเล็กๆ อีกหลายตัวถูกก๊อปปี้ตอนกำหนดค่าให้ชื่อใหม่</li>
+        <li><code>String</code> ถูกย้าย ชื่อเก่ายืมต่อไม่ได้</li>
+        <li>error รหัส E0382 คือใช้ค่าหลังถูกย้าย</li>
+      </ul>
+    </article>

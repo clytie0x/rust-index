@@ -1,0 +1,4 @@
+title = "คะแนนโบนัส"
+level = 1
+time_limit = 1
+hint = "<p>ส่ง <code>&amp;mut</code> เข้าฟังก์ชันแล้วบวกที่ <code>*score</code> หรือจะบวกใน <code>main</code> ก็ได้ถ้าผลตรง</p>"

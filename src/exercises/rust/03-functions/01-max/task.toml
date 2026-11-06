@@ -1,0 +1,4 @@
+title = "คะแนนที่มากกว่า"
+level = 1
+time_limit = 1
+hint = "<p>เขียนฟังก์ชันที่คืน <code>i32</code> แขน <code>if</code> ที่เป็นคำตอบห้ามลงท้ายด้วย <code>;</code></p>"

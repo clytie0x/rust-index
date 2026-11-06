@@ -1,0 +1,84 @@
+<article class="doc">
+      <h1>3.1 ฟังก์ชัน</h1>
+
+      <p>ฟังก์ชันคือชุดคำสั่งที่ตั้งชื่อไว้ เรียกซ้ำได้ และส่งค่ากลับได้ <code>main</code> ที่เขียนมาตั้งแต่บทที่ 0 ก็เป็นฟังก์ชันตัวหนึ่ง</p>
+
+      <h2 id="no-return">ฟังก์ชันที่ทำงานอย่างเดียว</h2>
+
+      <div class="code" data-lang="rust" data-linenums data-test="line"><pre><code>fn line() {
+    println!("----------");
+}
+
+fn main() {
+    line();
+    println!("Room 4");
+    line();
+}
+</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="line" data-title="cargo run"><pre><code>----------
+Room 4
+----------
+</code></pre></div>
+
+      <p>ไม่มีลูกศรหลังวงเล็บ แปลว่าไม่ได้คืนค่าอะไร เรียกด้วยชื่อแล้วตามด้วยวงเล็บ</p>
+
+      <h2 id="return">ส่งค่ากลับ</h2>
+
+      <p>ชนิดของค่าที่คืนเขียนหลัง <code>-&gt;</code> บรรทัดสุดท้ายของฟังก์ชันถ้าไม่มี <code>;</code> จะเป็นค่าที่ถูกคืน ไม่ต้องเขียน <code>return</code> ก็ได้</p>
+
+      <div class="code" data-lang="rust" data-linenums data-annotate data-test="total"><pre><code>fn total(math: i32, science: i32) -&gt; i32 { // (1)!
+    math + science // (2)!
+}
+
+fn main() {
+    let sum = total(78, 91); // (3)!
+    println!("{sum}");
+}
+</code></pre></div>
+      <ol class="anno-list">
+        <li>รับ <code>i32</code> สองตัว แล้วคืน <code>i32</code> หนึ่งตัว</li>
+        <li>ไม่มี <code>;</code> ท้ายบรรทัดนี้ ผลบวกจึงถูกส่งกลับ เป็นนิพจน์ (expression) ไม่ใช่คำสั่งที่ทิ้งค่า</li>
+        <li>เรียกฟังก์ชันแล้วเก็บค่าที่คืนได้เหมือนเก็บผลบวกทั่วไป</li>
+      </ol>
+
+      <div class="code" data-lang="output" data-for="total" data-title="cargo run"><pre><code>169
+</code></pre></div>
+
+      <h2 id="break-it">ใส่ ; ที่บรรทัดสุดท้าย</h2>
+
+      <div class="code" data-lang="rust" data-linenums><pre><code>fn total(math: i32, science: i32) -&gt; i32 {
+    math + science;
+}
+
+fn main() {
+    println!("{}", total(70, 80));
+}
+</code></pre></div>
+
+      <div class="code" data-lang="rustc"><pre><code>error[E0308]: mismatched types
+ --&gt; main.rs:1:38
+  |
+1 | fn total(math: i32, science: i32) -&gt; i32 {
+  |    -----                             ^^^ expected `i32`, found `()`
+  |    |
+  |    implicitly returns `()` as its body has no tail or `return` expression
+2 |     math + science;
+  |                   - help: remove this semicolon to return this value
+</code></pre></div>
+
+      <p><code>()</code> คือค่าว่าง ไม่มีข้อมูล พอใส่ <code>;</code> บรรทัดนั้นกลายเป็นคำสั่งที่ทิ้งผลบวกไป ฟังก์ชันเลยไม่ได้คืน <code>i32</code> ตามที่หัวฟังก์ชันสัญญาไว้ rustc ชี้ให้ลบ <code>;</code> ตรงนั้น</p>
+
+      <div class="adm adm-warning" role="note">
+        <p class="adm-title">; ท้ายบรรทัดสุดท้ายคือจุดที่พลาดบ่อย</p>
+        <p>บรรทัดที่อยากให้เป็นคำตอบของฟังก์ชัน ห้ามปิดด้วย <code>;</code> บรรทัดที่เป็นคำสั่งอย่าง <code>println!</code> ยังต้องมี <code>;</code> เหมือนเดิม</p>
+      </div>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+        <li>ประกาศด้วย <code>fn ชื่อ(พารามิเตอร์) -&gt; ชนิดที่คืน</code></li>
+        <li>บรรทัดสุดท้ายที่ไม่มี <code>;</code> คือค่าที่คืน</li>
+        <li>ฟังก์ชันที่ไม่คืนค่า ไม่ต้องเขียน <code>-&gt;</code></li>
+      </ul>
+    </article>

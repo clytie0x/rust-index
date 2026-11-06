@@ -1,0 +1,102 @@
+<article class="doc">
+      <h1>1.2 ชนิดตัวเลข bool char</h1>
+
+      <p>ทุกค่าใน Rust มี <strong>ชนิด (type)</strong> ชนิดบอกว่ากล่องนี้เก็บของแบบไหน และใหญ่ได้แค่ไหน ถ้าไม่เขียนชนิดเอง ตัวเลขจำนวนเต็มที่ยังไม่มีบริบทจะเป็น <code>i32</code></p>
+
+      <h2 id="numbers">i32 กับ u64</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>ชนิด</th><th>เก็บอะไร</th><th>ใช้เมื่อ</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>i32</code></td><td>จำนวนเต็มมีเครื่องหมาย 32 บิต ตั้งแต่ -2147483648 ถึง 2147483647</td><td>คะแนน จำนวนข้อ เลขที่ยังไม่ใหญ่มาก ค่าเริ่มต้นของเลขจำนวนเต็ม</td></tr>
+            <tr><td><code>u64</code></td><td>จำนวนเต็มไม่ติดลบ 64 บิต</td><td>จำนวนที่ใหญ่กว่าขอบของ <code>i32</code> และไม่ติดลบ เช่น จำนวนคน</td></tr>
+            <tr><td><code>bool</code></td><td><code>true</code> หรือ <code>false</code> เท่านั้น</td><td>ผ่านหรือไม่ผ่าน เปิดหรือปิด</td></tr>
+            <tr><td><code>char</code></td><td>ตัวอักษรหนึ่งตัว ในเครื่องหมายคำพูดเดี่ยว</td><td>เกรดตัวเดียว สัญลักษณ์หนึ่งตัว</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>ตัว <code>i</code> มาจาก integer และมีเครื่องหมาย ตัว <code>u</code> มาจาก unsigned คือไม่มีเครื่องหมายลบ เลขข้างหลังคือจำนวนบิต</p>
+
+      <div class="code" data-lang="rust" data-linenums data-test="typed"><pre><code>fn main() {
+    let score: i32 = 85;
+    let population: u64 = 3_000_000_000;
+    let passed: bool = true;
+    let grade: char = 'A';
+    println!("{score}");
+    println!("{population}");
+    println!("{passed}");
+    println!("{grade}");
+}
+</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="typed" data-title="cargo run"><pre><code>85
+3000000000
+true
+A
+</code></pre></div>
+
+      <ul>
+        <li><code>: i32</code> คือการเขียนชนิดให้ชัด ใส่หลังชื่อตัวแปร</li>
+        <li>ขีดล่างใน <code>3_000_000_000</code> มีไว้ให้อ่านง่าย rustc ไม่คิดว่าเป็นคนละจำนวน</li>
+        <li><code>true</code> ไม่มีเครื่องหมายคำพูด</li>
+        <li><code>'A'</code> ใช้คำพูดเดี่ยว เพราะเป็น <code>char</code> หนึ่งตัว</li>
+      </ul>
+
+      <h2 id="break-it">ลองทำให้พัง</h2>
+
+      <p>เอาจำนวนที่ใหญ่เกินขอบของ <code>i32</code> ไปใส่กล่อง <code>i32</code></p>
+
+      <div class="code" data-lang="rust" data-linenums><pre><code>fn main() {
+    let big: i32 = 3_000_000_000;
+    println!("{big}");
+}
+</code></pre></div>
+
+      <div class="code" data-lang="rustc"><pre><code>error: literal out of range for `i32`
+ --&gt; main.rs:2:20
+  |
+2 |     let big: i32 = 3_000_000_000;
+  |                    ^^^^^^^^^^^^^
+  |
+  = note: the literal `3_000_000_000` does not fit into the type `i32` whose range is `-2147483648..=2147483647`
+  = help: consider using the type `u32` instead
+</code></pre></div>
+
+      <p>rustc บอกช่วงที่ <code>i32</code> รับได้ตรงๆ เลขสามพันล้านยังไม่เกิน <code>u32</code> จึงเสนอชนิดนั้น ในตัวอย่างด้านบนใช้ <code>u64</code> ซึ่งรับจำนวนนี้ได้เช่นกัน และเหลือที่ให้โตต่อ</p>
+
+      <p>อีกแบบที่เจอบ่อย คือใส่ข้อความคู่ให้กับ <code>char</code></p>
+
+      <div class="code" data-lang="rust" data-linenums><pre><code>fn main() {
+    let grade: char = "A";
+    println!("{grade}");
+}
+</code></pre></div>
+
+      <div class="code" data-lang="rustc"><pre><code>error[E0308]: mismatched types
+ --&gt; main.rs:2:23
+  |
+2 |     let grade: char = "A";
+  |                ----   ^^^ expected `char`, found `&amp;str`
+  |                |
+  |                expected due to this
+  |
+help: if you meant to write a `char` literal, use single quotes
+  |
+2 |     let grade: char = 'A';
+  |                       ~~~
+</code></pre></div>
+
+      <p>เครื่องหมายคำพูดคู่คือข้อความ ชนิดของมันคือ <code>&amp;str</code> ซึ่งเป็นคนละชนิดกับ <code>char</code> หน้าถัดไปจะแยกสองอย่างนี้ออกจากกัน</p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+        <li>จำนวนเต็มทั่วไปใช้ <code>i32</code> จำนวนใหญ่ไม่ติดลบใช้ <code>u64</code></li>
+        <li><code>bool</code> มีแค่ <code>true</code> กับ <code>false</code></li>
+        <li>ตัวอักษรหนึ่งตัวใช้ <code>'A'</code> ไม่ใช่ <code>"A"</code></li>
+      </ul>
+    </article>

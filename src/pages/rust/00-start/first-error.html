@@ -1,0 +1,70 @@
+<article class="doc">
+      <h1>0.3 อ่าน error จาก rustc</h1>
+
+      <p>เขียนโปรแกรมแล้วเจอ error เป็นเรื่องปกติ คนที่อ่าน error ออกจะเดินต่อได้เร็วกว่าคนที่ทิ้งแล้วเริ่มใหม่ หน้านี้ทำให้พังทีละแบบ แล้วกลับมาแก้ให้ถูกก่อนลองแบบถัดไป</p>
+
+      <p>ข้อความด้านล่างคัดจาก <code>rustc --edition 2021</code> จริง ตัดบรรทัด <code>aborting due to ...</code> ท้ายข้อความออก เพราะซ้ำกับ error ด้านบน</p>
+
+      <h2 id="missing-semicolon">ลืม <code>;</code></h2>
+
+      <p>เปิด <code>src/main.rs</code> แล้วลบ <code>;</code> ท้ายบรรทัด <code>println!</code> บรรทัดแรก จากนั้นใส่ <code>println!</code> อีกบรรทัดให้มีคำสั่งถัดไปให้คอมไพเลอร์ชี้</p>
+
+      <div class="code" data-lang="rust" data-linenums><pre><code>fn main() {
+    println!("Hello, world!")
+    println!("next");
+}
+</code></pre></div>
+
+      <p>รัน <code>cargo run</code> จะไม่เกิดโปรแกรม แต่ได้ข้อความประมาณนี้</p>
+
+      <div class="code" data-lang="rustc"><pre><code>error: expected `;`, found `println`
+ --&gt; main.rs:2:30
+  |
+2 |     println!("Hello, world!")
+  |                              ^ help: add `;` here
+3 |     println!("next");
+  |     ------- unexpected token
+</code></pre></div>
+
+      <p>อ่านแบบนี้</p>
+
+      <ul>
+        <li>บรรทัด <code>error</code> บอกว่าขาด <code>;</code></li>
+        <li><code>main.rs:2:30</code> คือไฟล์ main.rs บรรทัด 2 ตัวอักษรที่ 30</li>
+        <li>เครื่องหมาย <code>^</code> ชี้จุดที่ควรใส่ <code>;</code> และ rustc เขียนวิธีแก้มาให้ในบรรทัด help</li>
+      </ul>
+
+      <p>ใส่ <code>;</code> กลับไปแล้วรันใหม่ ต้องผ่าน</p>
+
+      <h2 id="typo">พิมพ์ชื่อมาโครผิด</h2>
+
+      <div class="code" data-lang="rust" data-linenums><pre><code>fn main() {
+    println!("Hello, world!");
+    prinltn!("next");
+}
+</code></pre></div>
+
+      <div class="code" data-lang="rustc"><pre><code>error: cannot find macro `prinltn` in this scope
+ --&gt; main.rs:3:5
+  |
+3 |     prinltn!("next");
+  |     ^^^^^^^ help: a macro with a similar name exists: `println`
+</code></pre></div>
+
+      <p>rustc ยังพิมพ์โน้ตที่ชี้เข้าไปในไลบรารีมาตรฐานต่อจากบรรทัดนี้ ยาวและยังไม่ต้องอ่าน ดูบรรทัด help พอ มันเดาได้ว่าเราหมายถึง <code>println</code></p>
+
+      <div class="adm adm-tip" role="note">
+        <p class="adm-title">อ่านบรรทัด error แรกก่อน</p>
+        <p>ข้อความที่ตามมาบ่อยครั้งเป็นผลพวงจากจุดแรก แก้จุดที่ <code>^</code> ชี้ แล้วรันใหม่ อย่าพยายามแก้ทุกบรรทัดพร้อมกัน</p>
+      </div>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+        <li><code>cargo run</code> ที่ไม่ผ่านจะโชว์ข้อความจาก rustc</li>
+        <li>เลขหลังชื่อไฟล์คือบรรทัดกับตำแหน่งตัวอักษร</li>
+        <li>บรรทัด help มักบอกวิธีแก้ตรงตัว อ่านก่อนลงมือเดา</li>
+      </ul>
+
+      <p>พอแก้ error ทั้งสองแบบได้แล้ว กลับไปติ๊ก <a href="index.html#checklist">ผ่านบทนี้เมื่อ</a> ให้ครบ แล้วไปแบบฝึกหัด</p>
+    </article>

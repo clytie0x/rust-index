@@ -1,0 +1,28 @@
+<article class="doc">
+      <h1>บทที่ 2 ownership พื้นฐาน</h1>
+
+      <p>บทนี้ตอบคำถามว่าค่าหนึ่งมีเจ้าของกี่คน และจะให้ฟังก์ชันอื่นอ่านหรือแก้ได้โดยไม่ย้ายเจ้าของยังไง ยังไม่ลงเรื่องอายุของตัวแปรทั้งก้อน เอาให้ใช้ <code>String</code> แล้วไม่ติด error พื้นฐาน</p>
+
+      <h2 id="in-this-chapter">ในบทนี้</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>หน้า</th><th>ได้อะไร</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><a href="move.html">2.1 move กับ Copy</a></td><td>รู้ว่า <code>i32</code> ถูกก๊อปปี้ แต่ <code>String</code> ถูกย้าย</td></tr>
+            <tr><td><a href="borrow.html">2.2 ยืมด้วย &amp;</a></td><td>ให้ฟังก์ชันอ่านค่าโดยเจ้าของเดิมยังใช้อยู่</td></tr>
+            <tr><td><a href="mut-borrow.html">2.3 ยืมแบบแก้ได้</a></td><td>แก้ค่าผ่าน <code>&amp;mut</code> และรู้ว่ายืมแบบแก้ได้ทีละที่</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="checklist">ผ่านบทนี้เมื่อ</h2>
+
+      <ul class="task-list">
+        <li><label><input type="checkbox"><span>ย้าย <code>String</code> แล้วลองใช้ชื่อเดิมจนอ่าน error เรื่อง move ออก</span></label></li>
+        <li><label><input type="checkbox"><span>ส่ง <code>&amp;str</code> เข้าฟังก์ชัน แล้วพิมพ์ค่าเดิมต่อได้</span></label></li>
+        <li><label><input type="checkbox"><span>เขียนฟังก์ชันที่รับ <code>&amp;mut</code> แล้วบวกคะแนนให้ได้</span></label></li>
+      </ul>
+    </article>

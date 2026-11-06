@@ -1,0 +1,110 @@
+<article class="doc">
+      <h1>1.1 let และ mut</h1>
+
+      <p>โปรแกรมบทที่ 0 พิมพ์ข้อความเดิมทุกครั้ง โจทย์จริงให้ตัวเลขมาแล้วให้คำนวณต่อ เช่น คะแนนสองวิชา โปรแกรมจึงต้องมีที่จำค่า ที่จำนั้นเรียกว่า <strong>ตัวแปร (variable)</strong></p>
+
+      <h2 id="binding">ประกาศด้วย let</h2>
+
+      <p>ใน Rust การผูกชื่อกับค่าเรียกว่า binding เขียนด้วย <code>let</code></p>
+
+      <div class="code" data-lang="rust" data-linenums data-annotate data-test="score"><pre><code>fn main() {
+    let score = 85; // (1)!
+    println!("score = {score}"); // (2)!
+}
+</code></pre></div>
+      <ol class="anno-list">
+        <li>สร้างตัวแปรชื่อ <code>score</code> แล้วใส่ค่า 85 ชื่อใช้ภาษาอังกฤษ ตัวเล็ก เว้นคำด้วย <code>_</code> ได้</li>
+        <li><code>{score}</code> ในข้อความคือช่องให้วางค่าของตัวแปรชื่อนั้น พิมพ์ชื่อในวงเล็บปีกกาได้เลย ไม่ต้องต่อท้ายแบบภาษาอื่น</li>
+      </ol>
+
+      <div class="code" data-lang="output" data-for="score" data-title="cargo run"><pre><code>score = 85
+</code></pre></div>
+
+      <p>ตัวแปรสองตัวชนิดเดียวกันเขียนคนละบรรทัด อ่านง่ายกว่ายัดบรรทัดเดียว</p>
+
+      <div class="code" data-lang="rust" data-linenums data-test="two-scores"><pre><code>fn main() {
+    let math = 78;
+    let science = 91;
+    println!("math = {math}, science = {science}");
+    println!("total = {}", math + science);
+}
+</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="two-scores" data-title="cargo run"><pre><code>math = 78, science = 91
+total = 169
+</code></pre></div>
+
+      <p><code>{}</code> ว่างๆ คือช่องค่าเหมือนกัน แต่ไม่ได้ผูกกับชื่อในวงเล็บ ค่าที่ตามหลังข้อความจะถูกเติมตามลำดับ ตรงนี้คือผลของ <code>math + science</code></p>
+
+      <h2 id="immutable">ค่าเดิมแก้ไม่ได้</h2>
+
+      <p>ตัวแปรจาก <code>let</code> แก้ค่าไม่ได้ นี่เป็นค่าเริ่มต้นของภาษา ไม่ใช่ข้อจำกัดที่ลืมเปิด ลองโปรแกรมนี้ มันคอมไพล์ไม่ผ่าน</p>
+
+      <div class="code" data-lang="rust" data-linenums><pre><code>fn main() {
+    let score = 85;
+    score = 92;
+    println!("{score}");
+}
+</code></pre></div>
+
+      <div class="code" data-lang="rustc"><pre><code>warning: value assigned to `score` is never read
+ --&gt; main.rs:2:9
+  |
+2 |     let score = 85;
+  |         ^^^^^
+  |
+  = help: maybe it is overwritten before being read?
+  = note: `#[warn(unused_assignments)]` on by default
+
+error[E0384]: cannot assign twice to immutable variable `score`
+ --&gt; main.rs:3:5
+  |
+2 |     let score = 85;
+  |         ----- first assignment to `score`
+3 |     score = 92;
+  |     ^^^^^^^^^^ cannot assign twice to immutable variable
+  |
+help: consider making this binding mutable
+  |
+2 |     let mut score = 85;
+  |         +++
+</code></pre></div>
+
+      <p>มีสองชั้น ชั้น <code>warning</code> บอกว่าค่า 85 ไม่ได้ถูกอ่าน เพราะโดนเขียนทับก่อน ชั้น <code>error</code> คือตัวที่ทำให้รันไม่ได้ มันบอกว่าตัวแปรนี้ immutable คือแก้ไม่ได้ และเสนอให้ใส่ <code>mut</code></p>
+
+      <p>บรรทัด <code>For more information about this error, try rustc --explain E0384</code> ถูกตัดออกจากกล่อง ถ้ารันเองจะเห็น รหัส <code>E0384</code> ใช้เปิดคำอธิบายยาวได้</p>
+
+      <h2 id="mut">ใส่ mut เมื่อตั้งใจให้เปลี่ยน</h2>
+
+      <p><code>mut</code> ย่อจาก mutable แปลว่าเปลี่ยนค่าได้ ใส่เฉพาะตัวที่ต้องเปลี่ยน</p>
+
+      <div class="code" data-lang="rust" data-linenums data-test="change"><pre><code>fn main() {
+    let mut score = 85;
+    println!("first = {score}");
+    score = 92;
+    println!("second = {score}");
+    score = score + 5;
+    println!("with bonus = {score}");
+}
+</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="change" data-title="cargo run"><pre><code>first = 85
+second = 92
+with bonus = 97
+</code></pre></div>
+
+      <p>บรรทัด <code>score = score + 5</code> ไม่ได้แปลว่าเท่ากับในคณิตศาสตร์ เครื่องหมาย <code>=</code> แปลว่าเอาค่าทางขวาไปใส่ชื่อทางซ้าย คอมพิวเตอร์ทำสองจังหวะ คำนวณ 92 + 5 ได้ 97 แล้วใส่กลับลง <code>score</code></p>
+
+      <div class="adm adm-warning" role="note">
+        <p class="adm-title">อย่าใส่ mut ทุกตัว</p>
+        <p>ถ้าใส่ <code>mut</code> ทั้งที่ไม่ได้เปลี่ยนค่า rustc จะเตือน ตัวตรวจของเว็บนี้ถือว่าคำเตือนคือข้อผิดพลาด ใส่ <code>mut</code> เฉพาะตอนที่มีบรรทัดกำหนดค่าใหม่จริง</p>
+      </div>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+        <li><code>let ชื่อ = ค่า;</code> สร้างตัวแปรที่แก้ค่าไม่ได้</li>
+        <li>อยากแก้ค่า เขียน <code>let mut</code></li>
+        <li><code>{ชื่อ}</code> ใน <code>println!</code> คือที่วางค่าของตัวแปรนั้น</li>
+      </ul>
+    </article>
