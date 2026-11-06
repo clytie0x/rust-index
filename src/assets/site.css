@@ -334,11 +334,11 @@ svg.ic { width: 20px; height: 20px; flex: none; }
 }
 .nav .nav-section-title .num-chip {
   font-family: var(--font-code);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  padding: 0;
-  border-radius: 0;
-  background: transparent;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--brand-soft) 85%, var(--surface));
   color: var(--accent-ink);
   align-self: center;
   line-height: 1.7;
