@@ -1,0 +1,4 @@
+title = "คะแนนรวม"
+level = 1
+time_limit = 1
+hint = "<p>ใช้ <code>split_whitespace</code> แล้ว <code>parse</code> เป็น <code>i32</code> ตามหน้า 1.3</p>"

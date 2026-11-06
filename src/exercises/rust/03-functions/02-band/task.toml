@@ -1,0 +1,4 @@
+title = "ตัดเกรด"
+level = 2
+time_limit = 1
+hint = "<p>ใช้ <code>if</code> เป็นนิพจน์ที่คืนข้อความ หรือ <code>match</code> ช่วง <code>80..=100</code> กับ <code>70..=79</code> แล้วให้ที่เหลือเป็น C</p>"

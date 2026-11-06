@@ -1,0 +1,86 @@
+# สารบัญของทั้งเว็บ แก้ที่ไฟล์นี้ที่เดียว
+# เมนูซ้าย ปุ่มก่อนหน้าและถัดไป ชื่อแท็บ และ breadcrumb สร้างจากลำดับในไฟล์นี้
+# เนื้อหาของแต่ละหน้าอยู่ที่ src/pages/<path>
+
+name = "rust-index"
+description = "เอกสารเรียนภาษา Rust ตั้งแต่ศูนย์ สำหรับติว"
+repo = "clytie0x/rust-index"
+author = "Teerapat Vatpitak"
+base = "/"
+
+[home]
+path = "index.html"
+title = "หน้าแรก"
+
+# บทที่ยังไม่มี path คือบทที่วางแผนไว้ จะขึ้นในแผนที่หน้าแรกเป็นสีจาง แต่ไม่อยู่ในเมนูซ้าย
+# พอเขียนบทนั้นแล้ว ให้ใส่ path กับ pages ตามบทที่ 0
+
+[[chapters]]
+track = "ภาษา Rust  ชุดเริ่มต้น"
+num = "0"
+title = "บทที่ 0 เริ่มต้น"
+summary = "ติดตั้ง rustup แล้วรันโปรแกรมแรก"
+path = "rust/00-start/index.html"
+pages = [
+  { num = "0.1", title = "ติดตั้ง rustup", path = "rust/00-start/install.html" },
+  { num = "0.2", title = "โปรแกรมแรก", path = "rust/00-start/hello.html" },
+  { num = "0.3", title = "อ่าน error จาก rustc", path = "rust/00-start/first-error.html" },
+  { num = "0.4", title = "แบบฝึกหัด", path = "rust/00-start/exercises.html", exercises = "rust/00-start" },
+]
+
+[[chapters]]
+track = "ภาษา Rust  ชุดเริ่มต้น"
+num = "1"
+title = "บทที่ 1 ตัวแปรกับชนิด"
+summary = "let mut และชนิด i32 u64 bool char String"
+path = "rust/01-variables/index.html"
+pages = [
+  { num = "1.1", title = "let และ mut", path = "rust/01-variables/let-mut.html" },
+  { num = "1.2", title = "ชนิดตัวเลข bool char", path = "rust/01-variables/types.html" },
+  { num = "1.3", title = "String กับ &str", path = "rust/01-variables/strings.html" },
+  { num = "1.4", title = "แบบฝึกหัด", path = "rust/01-variables/exercises.html", exercises = "rust/01-variables" },
+]
+
+[[chapters]]
+track = "ภาษา Rust  ชุดเริ่มต้น"
+num = "2"
+title = "บทที่ 2 ownership พื้นฐาน"
+summary = "move การยืม และแก้ค่าผ่านการยืม"
+path = "rust/02-ownership/index.html"
+pages = [
+  { num = "2.1", title = "move กับ Copy", path = "rust/02-ownership/move.html" },
+  { num = "2.2", title = "ยืมด้วย &", path = "rust/02-ownership/borrow.html" },
+  { num = "2.3", title = "ยืมแบบแก้ได้", path = "rust/02-ownership/mut-borrow.html" },
+  { num = "2.4", title = "แบบฝึกหัด", path = "rust/02-ownership/exercises.html", exercises = "rust/02-ownership" },
+]
+
+[[chapters]]
+track = "ภาษา Rust  ชุดเริ่มต้น"
+num = "3"
+title = "บทที่ 3 ฟังก์ชันกับ control flow"
+summary = "ฟังก์ชัน if loop และ match"
+path = "rust/03-functions/index.html"
+pages = [
+  { num = "3.1", title = "ฟังก์ชัน", path = "rust/03-functions/functions.html" },
+  { num = "3.2", title = "if และ loop", path = "rust/03-functions/control.html" },
+  { num = "3.3", title = "match", path = "rust/03-functions/match.html" },
+  { num = "3.4", title = "แบบฝึกหัด", path = "rust/03-functions/exercises.html", exercises = "rust/03-functions" },
+]
+
+[[chapters]]
+track = "ภาษา Rust  ชุดเริ่มต้น"
+num = "4"
+title = "บทที่ 4 Vec"
+summary = "เก็บค่าหลายตัวในลิสต์ที่ยาวขึ้นได้"
+
+[[chapters]]
+track = "ภาษา Rust  ชุดเริ่มต้น"
+num = "5"
+title = "บทที่ 5 struct กับ enum"
+summary = "รวมข้อมูลเป็นก้อน และทางเลือกที่ตรวจได้ตอนคอมไพล์"
+
+[[chapters]]
+track = "ภาษา Rust  ชุดเริ่มต้น"
+num = "6"
+title = "บทที่ 6 จัดการ error"
+summary = "Result แทนการ unwrap"

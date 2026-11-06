@@ -1,0 +1,77 @@
+<article class="doc">
+      <h1>0.2 โปรแกรมแรก</h1>
+
+      <p>โปรแกรมแรกคือสั่งให้พิมพ์ข้อความออกจอ ถ้าหน้านี้รันผ่าน แปลว่าเครื่องพร้อมเริ่มเรียนแล้ว</p>
+
+      <h2 id="step-1" class="step"><span class="step-label"><span class="step-word">ขั้นที่ </span>1</span> สร้างโปรเจกต์</h2>
+
+      <p>เปิดเทอร์มินัล ไปที่โฟลเดอร์ที่ใช้เก็บงาน แล้วรัน</p>
+
+      <div class="code" data-lang="text"><pre><code>cargo new hello
+cd hello
+</code></pre></div>
+
+      <p><code>cargo new</code> สร้างโฟลเดอร์ <code>hello</code> ให้ พร้อมไฟล์ที่ต้องมี ไฟล์ที่เราจะแก้คือ <code>src/main.rs</code></p>
+
+      <h2 id="step-2" class="step"><span class="step-label"><span class="step-word">ขั้นที่ </span>2</span> ดูโค้ดที่ cargo เขียนให้</h2>
+
+      <p>เปิด <code>src/main.rs</code> จะเห็นโปรแกรมนี้ พิมพ์ตามได้ถ้าอยากเริ่มจากไฟล์ว่าง แต่ของที่ cargo ให้มาตรงกับด้านล่างอยู่แล้ว</p>
+
+      <div class="code" data-lang="rust" data-linenums data-annotate data-test="hello"><pre><code>fn main() { // (1)!
+    println!("Hello, world!"); // (2)!
+}
+</code></pre></div>
+      <ol class="anno-list">
+        <li><code>fn</code> ย่อจาก function คือฟังก์ชัน <code>main</code> คือจุดเริ่มของโปรแกรม รันเมื่อไรจะเริ่มที่นี่ ปีกกาเปิดวางบรรทัดเดียวกับชื่อฟังก์ชัน</li>
+        <li><code>println!</code> พิมพ์ข้อความแล้วขึ้นบรรทัดใหม่ เครื่องหมาย <code>!</code> บอกว่านี่คือมาโคร (macro) ไม่ใช่ฟังก์ชันธรรมดา คำสั่งจบด้วย <code>;</code></li>
+      </ol>
+
+      <p>กดวงกลมตัวเลขในโค้ดเพื่อดูคำอธิบายทีละจุด ปีกกา <code>{ }</code> ครอบคำสั่งที่อยู่ใน <code>main</code> เปิดปีกกาไว้บรรทัดเดียวกับ <code>fn main()</code> ตามแบบที่ <code>cargo</code> จัดให้</p>
+
+      <h2 id="step-3" class="step"><span class="step-label"><span class="step-word">ขั้นที่ </span>3</span> รัน</h2>
+
+      <div class="code" data-lang="text"><pre><code>cargo run
+</code></pre></div>
+
+      <p>ครั้งแรกรอสักครู่ cargo จะคอมไพล์ก่อน แล้วรันให้ บรรทัดที่โปรแกรมพิมพ์คือบรรทัดนี้</p>
+
+      <div class="code" data-lang="output" data-for="hello" data-title="cargo run"><pre><code>Hello, world!
+</code></pre></div>
+
+      <p>บนเทอร์มินัลจะมีบรรทัด <code>Compiling</code> กับ <code>Finished</code> เพิ่มมา cargo พิมพ์เองทางช่องคนละช่องกับผลของโปรแกรม กล่องด้านบนแสดงเฉพาะสิ่งที่โปรแกรมพิมพ์</p>
+
+      <div class="adm adm-note" role="note">
+        <p class="adm-title">ยังไม่มีสนามทดลองในเบราว์เซอร์</p>
+        <p>ชุดเริ่มต้นนี้รันบนเครื่องตัวเองด้วย <code>cargo run</code> เท่านั้น</p>
+      </div>
+
+      <h2 id="try-changes">ลองเปลี่ยนดู</h2>
+
+      <ol>
+        <li>เปลี่ยนข้อความเป็นชื่อตัวเองแบบตัวอังกฤษ แล้วรันใหม่</li>
+        <li>เพิ่ม <code>println!</code> อีกบรรทัด ให้พิมพ์สองบรรทัด</li>
+      </ol>
+
+      <p>ตัวอย่างที่สองบรรทัด รันแล้วได้แบบนี้</p>
+
+      <div class="code" data-lang="rust" data-linenums data-test="two-lines"><pre><code>fn main() {
+    println!("Hello, Ann");
+    println!("Rust");
+}
+</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="two-lines" data-title="cargo run"><pre><code>Hello, Ann
+Rust
+</code></pre></div>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+        <li><code>cargo new ชื่อโปรเจกต์</code> สร้างโฟลเดอร์ให้</li>
+        <li>แก้ที่ <code>src/main.rs</code></li>
+        <li><code>cargo run</code> คือคอมไพล์แล้วรัน</li>
+        <li>ทุกโปรแกรมในชุดนี้มี <code>fn main</code> หนึ่งตัว</li>
+      </ul>
+
+      <p>กลับไปเช็กรายการ <a href="index.html#checklist">ผ่านบทนี้เมื่อ</a> ได้สองข้อแรกแล้ว ค่อยไปอ่าน error ที่หน้าถัดไป</p>
+    </article>

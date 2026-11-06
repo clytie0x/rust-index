@@ -1,0 +1,44 @@
+<article class="doc">
+      <h1>2.2 ยืมด้วย &amp;</h1>
+
+      <p>บ่อยครั้งฟังก์ชันแค่อยากอ่านข้อความ ไม่ได้อยากเป็นเจ้าของใหม่ การ<strong>ยืม (borrow)</strong> คือส่งสิทธิ์อ่านชั่วคราว โดยเจ้าของเดิมยังอยู่</p>
+
+      <p>เครื่องหมาย <code>&amp;</code> ข้างหน้าค่าแปลว่ายืม ค่าที่ยืมมาของข้อความใช้ชนิด <code>&amp;str</code> ได้ทั้งข้อความในเครื่องหมายคำพูดและ <code>String</code> ที่มีอยู่แล้ว</p>
+
+      <div class="code" data-lang="rust" data-linenums data-annotate data-test="show"><pre><code>fn show(text: &amp;str) { // (1)!
+    println!("{text}");
+}
+
+fn main() {
+    let name = String::from("Ann");
+    show(&amp;name); // (2)!
+    show("Mali");
+    println!("{name}"); // (3)!
+}
+</code></pre></div>
+      <ol class="anno-list">
+        <li>ฟังก์ชันรับ <code>&amp;str</code> คือขอยืมข้อความมาอ่าน ไม่ได้ยึดเป็นของตัวเอง</li>
+        <li><code>&amp;name</code> ยืม <code>String</code> ชื่อ name Rust ส่งต่อให้ฟังก์ชันที่รับ <code>&amp;str</code> ได้</li>
+        <li>หลังยืมจบ ชื่อ <code>name</code> ยังพิมพ์ได้ เพราะไม่ได้ถูกย้าย</li>
+      </ol>
+
+      <div class="code" data-lang="output" data-for="show" data-title="cargo run"><pre><code>Ann
+Mali
+Ann
+</code></pre></div>
+
+      <p>เทียบกับหน้า 2.1 ถ้าเขียน <code>show(name)</code> โดยไม่มี <code>&amp;</code> และฟังก์ชันรับ <code>String</code> ค่าจะถูกย้ายเข้าฟังก์ชัน พอบรรทัดสุดท้ายจะใช้ <code>name</code> ไม่ได้อีก หน้านี้เลือกยืมจึงพิมพ์ได้สามบรรทัด</p>
+
+      <div class="adm adm-tip" role="note">
+        <p class="adm-title">ฟังก์ชันที่แค่อ่าน ให้รับ &amp;str</p>
+        <p>ผู้เรียกจะส่งได้ทั้ง <code>"Mali"</code> และ <code>&amp;some_string</code> ไม่ต้องสร้าง <code>String</code> ใหม่ทุกครั้ง</p>
+      </div>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+        <li><code>&amp;</code> คือการยืม</li>
+        <li><code>&amp;str</code> คือข้อความที่ยืมมาอ่าน</li>
+        <li>ยืมแล้วเจ้าของเดิมยังใช้ต่อได้</li>
+      </ul>
+    </article>

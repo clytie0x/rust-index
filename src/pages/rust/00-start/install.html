@@ -1,0 +1,49 @@
+<article class="doc">
+      <h1>0.1 ติดตั้ง rustup</h1>
+
+      <p>Rust ติดตั้งผ่านโปรแกรมชื่อ <strong>rustup</strong> มันจัดการตัวแปลภาษา <code>rustc</code> (compiler) กับเครื่องมือสร้างโปรเจกต์ <code>cargo</code> ให้ ใช้ชุดนี้ชุดเดียวทั้งตอนเรียนและตอนตรวจโค้ดในเว็บ</p>
+
+      <h2 id="step-1" class="step"><span class="step-label"><span class="step-word">ขั้นที่ </span>1</span> ติดตั้ง</h2>
+
+      <ol>
+        <li>เปิด <a href="https://rustup.rs/">https://rustup.rs/</a></li>
+        <li>ทำตามคำสั่งของระบบตัวเอง บน Windows คือดาวน์โหลด <code>rustup-init.exe</code> แล้วรัน บน macOS กับ Linux คือวางคำสั่ง <code>curl</code> ที่เว็บให้ไว้ลงเทอร์มินัล</li>
+        <li>พอตัวติดตั้งถาม ให้เลือกค่าเริ่มต้น (default) กด Enter ตามที่มันบอก</li>
+      </ol>
+
+      <div class="adm adm-warning" role="note">
+        <p class="adm-title">เปิดเทอร์มินัลใหม่หลังติดตั้ง</p>
+        <p>หน้าต่างเทอร์มินัลที่เปิดค้างไว้ก่อนติดตั้งจะยังไม่รู้จัก <code>cargo</code> ปิดแล้วเปิดใหม่ก่อนลองคำสั่งขั้นถัดไป</p>
+      </div>
+
+      <h2 id="step-2" class="step"><span class="step-label"><span class="step-word">ขั้นที่ </span>2</span> ตรวจว่าใช้ได้</h2>
+
+      <p>พิมพ์สองคำสั่งนี้ คนละครั้ง</p>
+
+      <div class="code" data-lang="text"><pre><code>rustc --version
+cargo --version
+</code></pre></div>
+
+      <p>ต้องเห็นเลขรุ่นขึ้นมา ทั้งคู่ เลขกับวันที่ไม่ต้องตรงกับตัวอย่างนี้ ขอแค่มีบรรทัดตอบกลับ ไม่ใช่ข้อความว่าไม่พบคำสั่ง</p>
+
+      <div class="code" data-lang="output" data-title="เทอร์มินัล"><pre><code>rustc 1.83.0 (90b35a623 2024-11-26)
+cargo 1.83.0 (5ffbef321 2024-10-29)
+</code></pre></div>
+
+      <div class="adm adm-note" role="note">
+        <p class="adm-title">เลขรุ่นคนละเครื่องไม่เป็นไร</p>
+        <p>เอกสารนี้ตรวจด้วย edition 2021 ซึ่ง rustup รุ่นปัจจุบันรองรับอยู่แล้ว ยังไม่ต้องสนใจคำว่า nightly หรือ beta</p>
+      </div>
+
+      <h2 id="editor">ใช้โปรแกรมอะไรพิมพ์โค้ด</h2>
+
+      <p>ใช้โปรแกรมแก้ไขข้อความตัวไหนก็ได้ โน้ตแพด VS Code หรือตัวที่ถนัด ชุดนี้ไม่ได้ผูกกับโปรแกรมตัวใดตัวหนึ่ง สิ่งที่ต้องมีคือเทอร์มินัลที่รัน <code>cargo</code> ได้</p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+        <li><code>rustup</code> เป็นตัวติดตั้ง</li>
+        <li><code>rustc</code> เป็นคอมไพเลอร์ แปลโค้ด Rust เป็นโปรแกรม</li>
+        <li><code>cargo</code> เป็นตัวสร้างโปรเจกต์และสั่งคอมไพล์ให้ บทหน้าจะใช้คำสั่งนี้เป็นหลัก</li>
+      </ul>
+    </article>
