@@ -1,0 +1,27 @@
+<article class="doc">
+      <h1>บทที่ 9 โมดูลกับ crate</h1>
+
+      <p>พอไฟล์ยาว การกองฟังก์ชันไว้ที่เดียวหาไม่เจอ โมดูลคือกล่องใส่ชื่อ และ pub คือการเปิดให้คนนอกกล่องเรียกได้</p>
+
+            <h2 id="in-this-chapter">ในบทนี้</h2>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>หน้า</th><th>ได้อะไร</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><a href="mod.html">9.1 mod ในไฟล์เดียว</a></td><td>แยกฟังก์ชันเป็นกลุ่มชื่อ แล้วยังรันในไฟล์เดียวได้</td></tr><tr><td><a href="pub.html">9.2 สิทธิ์ pub</a></td><td>ซ่อนตัวช่วยไว้ในโมดูล เปิดเฉพาะฟังก์ชันที่ตั้งใจให้เรียก</td></tr><tr><td><a href="layout.html">9.3 use กับโครง cargo</a></td><td>เรียกชื่อสั้นลง และรู้ว่า cargo แยกไฟล์อย่างไร</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2 id="checklist">ผ่านบทนี้เมื่อ</h2>
+
+            <ul class="task-list">
+              <li><label><input type="checkbox"><span>เขียน <code>mod</code> แล้วเรียกฟังก์ชันข้างในด้วย <code>ชื่อ::ฟังก์ชัน</code></span></label></li>
+              <li><label><input type="checkbox"><span>แยกของในโมดูลที่คนนอกเรียกได้กับของที่ใช้ข้างในอย่างเดียว</span></label></li>
+              <li><label><input type="checkbox"><span>ใช้ <code>use</code> ดึงชื่อมาเรียกสั้นๆ</span></label></li>
+              <li><label><input type="checkbox"><span>บอกได้ว่าเรียกฟังก์ชันที่ไม่ <code>pub</code> จากข้างนอกแล้ว rustc ไม่ให้ผ่าน</span></label></li>
+            </ul>
+    </article>

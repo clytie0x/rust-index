@@ -1,0 +1,47 @@
+<article class="doc">
+      <h1>14.3 Arc กับ Mutex</h1>
+
+      <p>บางตัวเลขต้องให้หลายเธรดบวกเข้าก้อนเดียว <code>Mutex</code> คือกุญแจ ครั้งหนึ่งมีคนแก้ได้คนเดียว <code>Arc</code> คือตัวนับเจ้าของแบบ <code>Rc</code> แต่ส่งข้ามเธรดได้</p>
+
+      <h2 id="lock">บวกทีละคน</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="count"><pre><code>use std::sync::{Arc, Mutex};
+use std::thread;
+
+fn main() {
+    let total = Arc::new(Mutex::new(0));
+    let mut handles = Vec::new();
+    for n in [10, 20, 30] {
+        let total = Arc::clone(&amp;total);
+        handles.push(thread::spawn(move || {
+            let mut slot = total.lock().unwrap();
+            *slot += n;
+        }));
+    }
+    for handle in handles {
+        handle.join().unwrap();
+    }
+    println!("{}", *total.lock().unwrap());
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="count" data-title="cargo run"><pre><code>60</code></pre></div>
+
+      <ul>
+      <li>แต่ละเธรดได้ <code>Arc</code> ของตัวเองที่ชี้ mutex เดียวกัน</li>
+      <li><code>lock</code> รอจนกว่าจะได้กุญแจ แล้วบวก</li>
+      <li>พิมพ์หลัง <code>join</code> ครบ จึงได้ 60 เสมอ ไม่ขึ้นกับว่าเธรดไหนจบก่อน</li>
+      </ul>
+
+      <div class="adm adm-note" role="note">
+              <p class="adm-title">อย่าล็อกค้างแล้วไปรอเธรดอื่น</p>
+              <p>ถ้าถือผลจาก <code>lock</code> ไว้แล้วไป <code>join</code> งานที่ต้องใช้กุญแจเดียวกัน อาจรอซึ่งกันและกันตลอด ปล่อยกุญแจให้จบใน closure แล้วค่อย join แบบตัวอย่างนี้</p>
+            </div>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>Mutex</code> ให้แก้ค่าทีละเธรด</li>
+              <li><code>Arc</code> ส่งเจ้าของข้ามเธรดได้</li>
+              <li>รอทุกเธรดจบก่อนอ่านผลสุดท้าย</li>
+            </ul>
+    </article>

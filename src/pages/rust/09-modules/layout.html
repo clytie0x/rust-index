@@ -1,0 +1,50 @@
+<article class="doc">
+      <h1>9.3 use กับโครง cargo</h1>
+
+      <p>เขียน <code>grade::band</code> ซ้ำๆ อ่านยาว <code>use</code> ดึงชื่อเข้า scope ปัจจุบัน แล้วเรียกสั้นได้</p>
+
+      <h2 id="use">ดึงชื่อมาใกล้ๆ</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="used"><pre><code>mod grade {
+    pub fn band(score: i32) -&gt; &amp;'static str {
+        if score &gt;= 80 {
+            "A"
+        } else {
+            "C"
+        }
+    }
+}
+
+use grade::band;
+
+fn main() {
+    println!("{}", band(85));
+    println!("{}", band(50));
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="used" data-title="cargo run"><pre><code>A
+C</code></pre></div>
+
+      <p><code>use</code> ไม่ได้คัดลอกโค้ด แค่ทำให้ชื่อ <code>band</code> ชี้ไปที่ฟังก์ชันในโมดูล</p>
+
+      <h2 id="files">แยกไฟล์เมื่อโปรเจกต์โต</h2>
+
+      <p>ของจริงไม่ยัดทุกโมดูลไว้ใน <code>main.rs</code> cargo มองหาไฟล์ให้เอง ถ้าระบุ <code>mod grade;</code> โดยไม่มีบล็อกปีกกา มันจะอ่าน <code>src/grade.rs</code> โปรเจกต์ที่มีทั้งโปรแกรมและไลบรารีใช้ <code>src/lib.rs</code> เป็นรากของ crate ที่คนอื่นเรียก และ <code>src/main.rs</code> เป็นโปรแกรม</p>
+
+<div class="code" data-lang="text"><pre><code>src/main.rs
+src/grade.rs
+src/lib.rs</code></pre></div>
+
+      <div class="adm adm-note" role="note">
+              <p class="adm-title">ตัวตรวจของเว็บคอมไพล์ทีละไฟล์</p>
+              <p>ตัวอย่างในหน้ามี <code>mod</code> พร้อมบล็อกปีกกา จึงอยู่ไฟล์เดียว เวลาทำโปรเจกต์ของตัวเองให้แยกไฟล์ตามที่ cargo มองหา แล้วรันด้วย <code>cargo run</code> เหมือนบทที่ 0</p>
+            </div>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>use ทาง::ชื่อ</code> ให้เรียกชื่อสั้นได้</li>
+              <li><code>mod ชื่อ;</code> ไม่มีบล็อก แปลว่าโค้ดอยู่ในไฟล์ <code>src/ชื่อ.rs</code></li>
+              <li><code>src/main.rs</code> คือโปรแกรม <code>src/lib.rs</code> คือ crate ที่เปิดให้เรียก</li>
+            </ul>
+    </article>

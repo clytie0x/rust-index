@@ -1,0 +1,60 @@
+<article class="doc">
+      <h1>12.1 closure</h1>
+
+      <p>บางทีตรรกะใช้ครั้งเดียว เช่น บวกคะแนนพิเศษห้าแต้ม การตั้ง <code>fn</code> ใหม่ทั้งก้อนก็ได้ แต่ closure คือฟังก์ชันไม่มีชื่อ เขียนตรงอาร์กิวเมนต์หรือตัวแปรได้เลย</p>
+
+      <h2 id="bars">ขีดตั้งคู่กับอาร์กิวเมนต์</h2>
+
+<div class="code" data-lang="rust" data-linenums data-annotate data-test="bonus"><pre><code>fn main() {
+    let bonus = |score: i32| score + 5;
+    println!("{}", bonus(80));
+    let passed = |score: i32| score &gt;= 70;
+    println!("{}", passed(80));
+    println!("{}", passed(60));
+}</code></pre></div>
+
+            <ol class="anno-list">
+              <li>หลัง <code>=</code> คือ closure <code>|score: i32|</code> คืออาร์กิวเมนต์ หลังขีดคือค่าที่คืน</li>
+              <li>เรียกเหมือนฟังก์ชัน ด้วยวงเล็บ</li>
+              <li>closure ที่คืน <code>bool</code> พิมพ์เป็น true หรือ false</li>
+            </ol>
+
+      <div class="code" data-lang="output" data-for="bonus" data-title="cargo run"><pre><code>85
+true
+false</code></pre></div>
+
+      <p>ไม่มี <code>fn</code> และไม่มีชื่อชนิดคืน rustc เดาจากตัวที่บวกและจาก <code>&gt;=</code></p>
+
+      <h2 id="break-it">ลองทำให้พัง</h2>
+
+      <p>closure ที่ <code>push</code> ยืมลิสต์แบบแก้ได้ค้างไว้จนกว่าจะถูกเรียก ระหว่างนั้นอ่าน <code>len</code> ไม่ได้ เพราะอ่านกับการแก้ชนกัน แบบเดียวกับยืมสองแบบในบทที่ 2</p>
+
+<div class="code" data-lang="rust" data-linenums><pre><code>fn main() {
+    let mut scores = vec![70, 80];
+    let mut add = || scores.push(90);
+    println!("{}", scores.len());
+    add();
+}</code></pre></div>
+
+<div class="code" data-lang="rustc"><pre><code>error[E0502]: cannot borrow `scores` as immutable because it is also borrowed as mutable
+ --&gt; main.rs:4:20
+  |
+3 |     let mut add = || scores.push(90);
+  |                   -- ------ first borrow occurs due to use of `scores` in closure
+  |                   |
+  |                   mutable borrow occurs here
+4 |     println!("{}", scores.len());
+  |                    ^^^^^^ immutable borrow occurs here
+5 |     add();
+  |     --- mutable borrow later used here</code></pre></div>
+
+      <p>เรียก <code>add</code> ให้จบก่อน แล้วค่อยอ่าน <code>len</code> หรืออย่าเก็บ closure ไว้ถ้ายังต้องใช้ลิสต์</p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li>closure เขียน <code>|อาร์กิวเมนต์| ค่าที่คืน</code></li>
+              <li>เรียกด้วยวงเล็บเหมือนฟังก์ชัน</li>
+              <li>ถ้ายืมแบบแก้ได้ การยืมอยู่จน closure ไม่ถูกใช้แล้ว</li>
+            </ul>
+    </article>

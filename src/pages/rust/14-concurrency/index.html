@@ -1,0 +1,27 @@
+<article class="doc">
+      <h1>บทที่ 14 concurrency ภาพรวม</h1>
+
+      <p>บางงานรอได้ทีละอย่าง บางงานอยากให้เดินพร้อมกัน บทนี้ดูสามชิ้นที่ใช้บ่อย คือเธรด ช่องส่งข้อความ และตัวเลขที่หลายเธรดแก้ร่วมกัน</p>
+
+            <h2 id="in-this-chapter">ในบทนี้</h2>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>หน้า</th><th>ได้อะไร</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><a href="thread.html">14.1 เธรดกับ join</a></td><td>ให้งานอีกเส้นคำนวณ แล้วรอผลก่อนพิมพ์</td></tr><tr><td><a href="channel.html">14.2 ช่องส่งข้อความ</a></td><td>ส่งค่าจากเธรดหนึ่งไปอีกเธรดโดยไม่แชร์ตัวแปร</td></tr><tr><td><a href="shared.html">14.3 Arc กับ Mutex</a></td><td>ให้หลายเธรดบวกตัวนับเดียวกัน โดยล็อกทีละคน</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2 id="checklist">ผ่านบทนี้เมื่อ</h2>
+
+            <ul class="task-list">
+              <li><label><input type="checkbox"><span>สร้างเธรดแล้ว <code>join</code> เพื่อเอาค่ากลับมาก่อนพิมพ์</span></label></li>
+              <li><label><input type="checkbox"><span>ส่งจำนวนเต็มข้ามเธรดด้วย channel</span></label></li>
+              <li><label><input type="checkbox"><span>แชร์ตัวนับด้วย <code>Arc</code> และ <code>Mutex</code></span></label></li>
+              <li><label><input type="checkbox"><span>บอกได้ว่า closure ของเธรดที่อ้างตัวแปรนอกต้อง <code>move</code></span></label></li>
+            </ul>
+    </article>

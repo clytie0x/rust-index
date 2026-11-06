@@ -1,0 +1,4 @@
+title = "อ่านคะแนนหรือบอกว่าเสีย"
+level = 1
+time_limit = 1
+hint = "<p><code>trim().parse::&lt;i32&gt;()</code> แล้ว <code>match</code> ถ้า <code>Ok</code> ให้พิมพ์เลข ถ้า <code>Err</code> ให้พิมพ์ bad</p>"

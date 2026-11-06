@@ -1,0 +1,27 @@
+<article class="doc">
+      <h1>บทที่ 13 smart pointer ภาพรวม</h1>
+
+      <p>ของส่วนใหญ่ใช้เจ้าของคนเดียวจากบทที่ 2 ได้พอ บทนี้คือสามเครื่องมือที่ใช้เมื่อรูปนั้นไม่พอ ยังไม่ต้องจำทุกเมธอด รู้ว่าแต่ละตัวแก้ปัญหาอะไร</p>
+
+            <h2 id="in-this-chapter">ในบทนี้</h2>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>หน้า</th><th>ได้อะไร</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><a href="box.html">13.1 Box</a></td><td>วางก้อนบน heap เมื่อชนิดต้องอ้างชนิดตัวเอง</td></tr><tr><td><a href="rc.html">13.2 Rc</a></td><td>ให้หลายชื่อใช้ก้อนเดียวกัน เมื่อย้ายอย่างเดียวไม่พอ</td></tr><tr><td><a href="refcell.html">13.3 RefCell</a></td><td>แก้ค่าทีหลัง แม้ตอนนี้จะถือแค่การยืมแบบอ่าน</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2 id="checklist">ผ่านบทนี้เมื่อ</h2>
+
+            <ul class="task-list">
+              <li><label><input type="checkbox"><span>ใช้ <code>Box</code> เก็บ enum ที่อ้างตัวเองได้</span></label></li>
+              <li><label><input type="checkbox"><span>ใช้ <code>Rc</code> ให้สองชื่อชี้ก้อนเดียวกัน และดูจำนวนเจ้าของ</span></label></li>
+              <li><label><input type="checkbox"><span>ใช้ <code>RefCell</code> แก้ค่าที่มีการยืมแบบอ่านอย่างเดียวครอบอยู่</span></label></li>
+              <li><label><input type="checkbox"><span>บอกได้ว่าดึง <code>String</code> ออกจาก <code>Rc</code> ด้วย <code>*</code> ไม่ได้</span></label></li>
+            </ul>
+    </article>

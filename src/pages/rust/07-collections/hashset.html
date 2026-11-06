@@ -1,0 +1,37 @@
+<article class="doc">
+      <h1>7.3 HashSet</h1>
+
+      <p>บางงานไม่ต้องการคะแนน ต้องการแค่รู้ว่าชื่อนี้เคยเจอแล้วหรือยัง <code>HashSet</code> คือชุดของค่า ไม่มีคู่ค่าที่สอง ใส่ซ้ำแล้วความยาวไม่เพิ่ม</p>
+
+      <h2 id="unique">กันชื่อซ้ำ</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="set"><pre><code>use std::collections::HashSet;
+
+fn main() {
+    let mut names = HashSet::new();
+    names.insert(String::from("Ann"));
+    names.insert(String::from("Ann"));
+    names.insert(String::from("Mali"));
+    println!("{}", names.len());
+    println!("{}", names.contains("Ann"));
+    println!("{}", names.contains("Bo"));
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="set" data-title="cargo run"><pre><code>2
+true
+false</code></pre></div>
+
+      <ul>
+      <li>ใส่ <code>Ann</code> สองครั้ง แต่ <code>len</code> เป็น 2 เพราะเหลือคนละชื่อ</li>
+      <li><code>contains</code> ถามว่ามีค่านี้ไหม ได้ <code>bool</code></li>
+      <li>ชุดนี้ก็ไม่รับประกันลำดับตอนวน อย่าพิมพ์รายชื่อทั้งชุดแล้วล็อกบรรทัด</li>
+      </ul>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>HashSet</code> เก็บค่าไม่ซ้ำ</li>
+              <li><code>insert</code> ค่าเดิมซ้ำไม่เพิ่มจำนวน</li>
+              <li><code>contains</code> ตอบว่ามีหรือไม่มี</li>
+            </ul>
+    </article>

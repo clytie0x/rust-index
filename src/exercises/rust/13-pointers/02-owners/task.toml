@@ -1,0 +1,4 @@
+title = "กี่เจ้าของ"
+level = 2
+time_limit = 1
+hint = "<p><code>Rc::new</code> แล้ว <code>Rc::clone</code> อีกหนึ่งชื่อ จากนั้นพิมพ์ชื่อกับ <code>strong_count</code></p>"

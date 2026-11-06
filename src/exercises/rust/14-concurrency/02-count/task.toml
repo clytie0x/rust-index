@@ -1,0 +1,4 @@
+title = "นับด้วยหลายเธรด"
+level = 3
+time_limit = 1
+hint = "<p>สร้าง <code>Arc&lt;Mutex&lt;i32&gt;&gt;</code> แล้วสร้าง n เธรด แต่ละเธรดบวกหนึ่ง จากนั้น join ครบแล้วพิมพ์ค่า</p>"

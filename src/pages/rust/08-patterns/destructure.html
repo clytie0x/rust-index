@@ -1,0 +1,96 @@
+<article class="doc">
+      <h1>8.1 แกะ struct กับ enum</h1>
+
+      <p>จุดบนฟิลด์ใช้ได้ทุกครั้ง แต่บางฟังก์ชันอยากได้ชื่อฟิลด์มาวางใน scope เดียวกับตรรกะ การแกะคือการจับคู่รูปแบบกับค่า แล้วผูกชื่อให้ส่วนที่สนใจ</p>
+
+      <h2 id="struct">แกะฟิลด์</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="open"><pre><code>struct Student {
+    name: String,
+    score: i32,
+}
+
+fn main() {
+    let student = Student {
+        name: String::from("Ann"),
+        score: 85,
+    };
+    let Student { name, score } = student;
+    println!("{name}");
+    println!("{score}");
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="open" data-title="cargo run"><pre><code>Ann
+85</code></pre></div>
+
+      <p>หลังแกะ <code>student</code> ถูกย้ายออกเป็น <code>name</code> กับ <code>score</code> เพราะ <code>String</code> ไม่ใช่ <code>Copy</code> ถ้ายังต้องใช้ก้อนเดิม ให้แกะจาก <code>&amp;student</code> แล้วชื่อที่ได้จะเป็นการยืม</p>
+
+      <h2 id="enum">แกะค่าที่ variant ถือไว้</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="known"><pre><code>enum Answer {
+    Known(i32),
+    Missing,
+}
+
+fn show(answer: Answer) {
+    match answer {
+        Answer::Known(n) =&gt; println!("{n}"),
+        Answer::Missing =&gt; println!("missing"),
+    }
+}
+
+fn main() {
+    show(Answer::Known(85));
+    show(Answer::Missing);
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="known" data-title="cargo run"><pre><code>85
+missing</code></pre></div>
+
+      <p><code>Answer::Known(n)</code> ทั้งตรวจว่าเป็นทาง Known และดึงตัวเลขมาชื่อ <code>n</code> ทาง Missing ไม่มีค่าให้ดึง</p>
+
+      <h2 id="break-it">ลองทำให้พัง</h2>
+
+      <p>ลืมแขนของ enum rustc บอกชื่อ variant ที่ยังไม่ถูกพูดถึง ต่างจากช่วง <code>i32</code> ในหน้า 3.3 ที่เหลือเป็นช่วงตัวเลขยาวๆ</p>
+
+<div class="code" data-lang="rust" data-linenums><pre><code>enum Grade {
+    A,
+    B,
+    C,
+}
+
+fn main() {
+    let g = Grade::A;
+    match g {
+        Grade::A =&gt; println!("A"),
+    }
+}</code></pre></div>
+
+<div class="code" data-lang="rustc"><pre><code>error[E0004]: non-exhaustive patterns: `Grade::B` and `Grade::C` not covered
+ --&gt; main.rs:9:11
+  |
+9 |     match g {
+  |           ^ patterns `Grade::B` and `Grade::C` not covered
+  |
+note: `Grade` defined here
+ --&gt; main.rs:1:6
+  |
+1 | enum Grade {
+  |      ^^^^^
+2 |     A,
+3 |     B,
+  |     - not covered
+4 |     C,
+  |     - not covered
+  = note: the matched value is of type `Grade`</code></pre></div>
+
+      <p>ตัด help ที่เสนอแมโคร <code>todo!</code> ออก เพราะชุดนี้ไม่ใช้แมโครนั้น ทางที่ใช้คือเขียนแขน <code>Grade::B</code> กับ <code>Grade::C</code> หรือรวมด้วย <code>|</code> ในหน้า 8.3</p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li>แกะ struct ได้ชื่อฟิลด์ และถ้าย้าย <code>String</code> ออก ก้อนเดิมใช้ต่อไม่ได้</li>
+              <li>แขน <code>Variant(n)</code> ดึงค่าที่ variant ถือไว้</li>
+              <li>ขาดแขนของ enum แล้ว rustc บอกชื่อที่ยังไม่ครอบคลุม</li>
+            </ul>
+    </article>

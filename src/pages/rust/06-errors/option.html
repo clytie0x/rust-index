@@ -1,0 +1,70 @@
+<article class="doc">
+      <h1>6.1 Option</h1>
+
+      <p>ค้นชื่อในห้องแล้วอาจไม่เจอ ถ้าคืน <code>0</code> จะปนกับคนที่สอบได้ศูนย์ <code>Option</code> คือ enum ที่มีสองทาง <code>Some</code> ถือค่าไว้ และ <code>None</code> แปลว่าไม่มี</p>
+
+      <h2 id="match-option">match ให้ครบสองทาง</h2>
+
+<div class="code" data-lang="rust" data-linenums data-annotate data-test="find"><pre><code>fn find_score(name: &amp;str) -&gt; Option&lt;i32&gt; {
+    if name == "Ann" {
+        Some(85)
+    } else {
+        None
+    }
+}
+
+fn show(name: &amp;str) {
+    match find_score(name) {
+        Some(n) =&gt; println!("{n}"),
+        None =&gt; println!("missing"),
+    }
+}
+
+fn main() {
+    show("Ann");
+    show("Bo");
+}</code></pre></div>
+
+            <ol class="anno-list">
+              <li>คืน <code>Option&lt;i32&gt;</code> คืออาจมี <code>i32</code> หรือไม่มี</li>
+              <li><code>Some(85)</code> ห่อ 85 ไว้ <code>None</code> ไม่มีตัวเลข</li>
+              <li><code>match</code> ต้องรับทั้งสองทาง ชื่อ <code>n</code> ในแขน <code>Some</code> คือค่าที่ห่อมา</li>
+            </ol>
+
+      <div class="code" data-lang="output" data-for="find" data-title="cargo run"><pre><code>85
+missing</code></pre></div>
+
+      <h2 id="get">ถามช่องของ Vec</h2>
+
+      <p>หน้า 4.2 ใช้นิ้วชี้ดัชนีตรงๆ ซึ่งพังตอนรันถ้าช่องไม่มี <code>get</code> คืน <code>Option</code> จึงถามได้ก่อนใช้</p>
+
+<div class="code" data-lang="rust" data-linenums data-test="slot"><pre><code>fn main() {
+    let scores = vec![70, 80];
+    match scores.get(1) {
+        Some(n) =&gt; println!("{n}"),
+        None =&gt; println!("missing"),
+    }
+    match scores.get(4) {
+        Some(n) =&gt; println!("{n}"),
+        None =&gt; println!("missing"),
+    }
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="slot" data-title="cargo run"><pre><code>80
+missing</code></pre></div>
+
+      <p><code>get</code> คืน <code>Option&lt;&amp;i32&gt;</code> พิมพ์ได้เลยเพราะตัวจัดรูปแบบตามเข้าไปดูค่าข้างใน</p>
+
+      <div class="adm adm-warning" role="note">
+              <p class="adm-title">unwrap คือการสลัด Option ทิ้ง</p>
+              <p>แบบฝึกหัดบทก่อนหน้าใช้ <code>unwrap</code> ตอนอ่านข้อมูลเข้า เพื่อให้โปรแกรมสั้น ถ้าค่าเป็น <code>None</code> หรือ <code>Err</code> โปรแกรมจะหยุด <code>unwrap</code> ใช้ได้ตอนติวที่ตั้งใจให้ข้อมูลถูกเสมอ งานที่ข้อมูลอาจพังให้ <code>match</code></p>
+            </div>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>Option</code> คือ <code>Some</code> หรือ <code>None</code></li>
+              <li><code>match</code> บังคับให้คิดถึงกรณีไม่มีค่า</li>
+              <li><code>Vec::get</code> คืน <code>Option</code> แทนการชี้ดัชนีตรงๆ</li>
+            </ul>
+    </article>

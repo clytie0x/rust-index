@@ -1,0 +1,44 @@
+<article class="doc">
+      <h1>10.3 Debug กับ derive</h1>
+
+      <p>ตอนไล่ค่าใน struct ไม่อยากเขียน <code>println</code> ทีละฟิลด์ <code>Debug</code> คือ trait สำหรับพิมพ์ให้คนอ่านตอนพัฒนา <code>derive</code> ให้ rustc เขียน <code>impl</code> ให้จากฟิลด์ที่มี</p>
+
+      <h2 id="debug">พิมพ์ด้วยรูปแบบ Debug</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="debug"><pre><code>#[derive(Debug)]
+struct Score {
+    math: i32,
+    science: i32,
+}
+
+fn main() {
+    let score = Score {
+        math: 78,
+        science: 91,
+    };
+    println!("math = {}", score.math);
+    println!("science = {}", score.science);
+    println!("{:?}", score);
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="debug" data-title="cargo run"><pre><code>math = 78
+science = 91
+Score { math: 78, science: 91 }</code></pre></div>
+
+      <p><code>{:?}</code> ขอรูปแบบ <code>Debug</code> วงเล็บปีกกาเปล่าขอรูปแบบแสดงผลปกติ ซึ่ง <code>i32</code> มีอยู่แล้ว แต่ struct ที่เราเขียนเองไม่มี จนกว่าจะ derive หรือ impl เอง</p>
+
+      <p>อ่านฟิลด์ก่อนพิมพ์ทั้งก้อนในตัวอย่างนี้ เพราะตัวตรวจถือฟิลด์ที่ไม่มีใครอ่านเป็นคำเตือน <code>Debug</code> อย่างเดียวไม่นับว่าอ่านฟิลด์ ในโปรแกรมติวจริงมักได้ใช้ฟิลด์อยู่แล้ว</p>
+
+      <div class="adm adm-tip" role="note">
+              <p class="adm-title">Clone เมื่อต้องสำเนา</p>
+              <p><code>#[derive(Clone)]</code> ได้เมธอด <code>clone</code> ใช้เมื่อชนิดไม่ได้เป็น <code>Copy</code> แต่ต้องการสำเนา เช่น <code>String</code> ภายใน struct อย่า clone ทั้งก้อนทุกบรรทัด ทำเมื่อย้ายแล้วของเดิมยังต้องอยู่</p>
+            </div>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>#[derive(Debug)]</code> ให้พิมพ์ struct ทั้งก้อนได้</li>
+              <li>ใช้ <code>{:?}</code> ในข้อความของ <code>println!</code></li>
+              <li><code>Clone</code> เป็น derive อีกตัวที่ใช้บ่อยเมื่อต้องสำเนา</li>
+            </ul>
+    </article>

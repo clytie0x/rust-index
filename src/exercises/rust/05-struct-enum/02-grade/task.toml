@@ -1,0 +1,4 @@
+title = "เกรดจาก enum"
+level = 2
+time_limit = 1
+hint = "<p>สร้าง enum สามตัว แล้วให้ฟังก์ชันคืนตัวเลือกจากคะแนน จากนั้น <code>match</code> เพื่อพิมพ์ A B หรือ C</p>"

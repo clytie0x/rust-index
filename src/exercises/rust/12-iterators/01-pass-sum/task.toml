@@ -1,0 +1,4 @@
+title = "รวมเฉพาะที่ผ่าน"
+level = 2
+time_limit = 1
+hint = "<p>แปลงทุกคำเป็น <code>i32</code> แล้ว <code>filter</code> คะแนนที่ตั้งแต่ 70 จากนั้น <code>sum</code></p>"

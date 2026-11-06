@@ -1,0 +1,62 @@
+<article class="doc">
+      <h1>4.1 อาเรย์กับสไลซ์</h1>
+
+      <p>บางครั้งจำนวนช่องรู้ตั้งแต่เขียนโค้ด เช่น คะแนนสามวิชาของคนเดียว ไม่ต้องโตตอนรัน อาเรย์คือก้อนนั้น ความยาวเป็นส่วนหนึ่งของชนิด</p>
+
+      <h2 id="array">ความยาวอยู่ในชนิด</h2>
+
+      <p><code>[i32; 3]</code> คืออาเรย์ของ <code>i32</code> สามช่อง ช่องแรกอยู่ที่ดัชนี 0 ถ้าอ่านช่องที่ไม่มี โปรแกรมหยุดตอนรัน ไม่ใช่ตอนคอมไพล์ จึงอ่านเฉพาะช่องที่รู้ว่ามี</p>
+
+<div class="code" data-lang="rust" data-linenums data-annotate data-test="scores"><pre><code>fn main() {
+    let scores = [70, 80, 90];
+    println!("{}", scores.len());
+    println!("{}", scores[0]);
+    println!("{}", scores[2]);
+}</code></pre></div>
+
+            <ol class="anno-list">
+              <li><code>[70, 80, 90]</code> สร้างอาเรย์สามช่อง rustc เดาชนิดเป็น <code>[i32; 3]</code></li>
+              <li><code>len</code> คือจำนวนช่อง ซึ่งอาเรย์ตัวนี้คือ 3 เสมอ</li>
+              <li>ดัชนี 2 คือช่องสุดท้าย เพราะนับเริ่มที่ 0</li>
+            </ol>
+
+      <div class="code" data-lang="output" data-for="scores" data-title="cargo run"><pre><code>3
+70
+90</code></pre></div>
+
+      <h2 id="slice">สไลซ์คือหน้าต่างที่มองบางช่วง</h2>
+
+      <p>ฟังก์ชันมักไม่อยากผูกกับความยาวตายตัว สไลซ์เขียนว่า <code>&amp;[i32]</code> คือยืมช่วงของอาเรย์มาอ่าน ความยาวจึงไม่อยู่ในชนิด อยู่ในค่าตอนรัน</p>
+
+<div class="code" data-lang="rust" data-linenums data-test="top"><pre><code>fn show(top: &amp;[i32]) {
+    println!("{}", top.len());
+    println!("{}", top[0]);
+}
+
+fn main() {
+    let scores = [70, 80, 90];
+    show(&amp;scores[0..2]);
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="top" data-title="cargo run"><pre><code>2
+70</code></pre></div>
+
+      <ul>
+      <li><code>0..2</code> คือช่อง 0 กับ 1 ไม่รวม 2 แบบเดียวกับช่วงในหน้า 3.2</li>
+      <li><code>&amp;scores[0..2]</code> ยืมช่วงนั้น ส่งเข้าฟังก์ชันที่รับ <code>&amp;[i32]</code> ได้</li>
+      <li>อาเรย์ทั้งก้อนส่งเป็นสไลซ์ได้ด้วย <code>&amp;scores</code> เพราะ Rust ยืมทั้งก้อนให้</li>
+      </ul>
+
+      <div class="adm adm-tip" role="note">
+              <p class="adm-title">อาเรย์เมื่อไหร่ Vec เมื่อไหร่</p>
+              <p>ถ้ารู้จำนวนช่องตั้งแต่เขียนโค้ดและไม่ต่อท้าย ใช้อาเรย์ ถ้าต้อง push หรือยังไม่รู้ว่าจะมีกี่คน ใช้ Vec ในหน้าถัดไป</p>
+            </div>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li>อาเรย์เขียน <code>[ค่า, ค่า]</code> ความยาวเป็นส่วนของชนิด</li>
+              <li>ดัชนีเริ่มที่ 0 และต้องชี้ช่องที่มีจริง</li>
+              <li>สไลซ์ <code>&amp;[i32]</code> คือการยืมช่วงหนึ่งของลิสต์</li>
+            </ul>
+    </article>

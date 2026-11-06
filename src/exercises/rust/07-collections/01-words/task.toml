@@ -1,0 +1,4 @@
+title = "นับคำ"
+level = 1
+time_limit = 1
+hint = "<p>วน <code>split_whitespace</code> แล้วนับ หรือใช้ <code>count</code> ก็ได้</p>"

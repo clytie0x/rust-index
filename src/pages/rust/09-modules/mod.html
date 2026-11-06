@@ -1,0 +1,45 @@
+<article class="doc">
+      <h1>9.1 mod ในไฟล์เดียว</h1>
+
+      <p>crate คือหน่วยที่ cargo คอมไพล์หนึ่งครั้ง โปรเจกต์จาก <code>cargo new</code> มี crate ของโปรแกรม เป็นไฟล์ <code>src/main.rs</code> โมดูลคือกล่องชื่อข้างใน crate นั้น เริ่มเขียนในไฟล์เดียวก่อนได้ ตัวตรวจของเว็บนี้ก็คอมไพล์ทีละไฟล์แบบนี้</p>
+
+      <h2 id="mod">กล่องชื่อ</h2>
+
+      <p>ฟังก์ชันข้างในโมดูลคนนอกมองไม่เห็น ถ้า <code>main</code> ต้องเรียก ให้เปิดด้วย <code>pub</code> หน้า 9.2 จะดูว่าเกิดอะไรเมื่อลืมเปิด</p>
+
+<div class="code" data-lang="rust" data-linenums data-annotate data-test="band"><pre><code>mod grade {
+    pub fn band(score: i32) -&gt; &amp;'static str {
+        if score &gt;= 80 {
+            "A"
+        } else if score &gt;= 70 {
+            "B"
+        } else {
+            "C"
+        }
+    }
+}
+
+fn main() {
+    println!("{}", grade::band(85));
+    println!("{}", grade::band(70));
+    println!("{}", grade::band(61));
+}</code></pre></div>
+
+            <ol class="anno-list">
+              <li><code>mod grade</code> สร้างกล่องชื่อ grade</li>
+              <li><code>pub</code> เปิดให้โค้ดนอกโมดูลเรียกฟังก์ชันนี้ได้</li>
+              <li><code>grade::band</code> คือชื่อทางเดิน จากโมดูลไปฟังก์ชัน</li>
+            </ol>
+
+      <div class="code" data-lang="output" data-for="band" data-title="cargo run"><pre><code>A
+B
+C</code></pre></div>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li>crate ของโปรแกรมเริ่มที่ <code>src/main.rs</code></li>
+              <li><code>mod</code> คือกล่องใส่ชื่อ</li>
+              <li>เรียกของข้างในด้วย <code>::</code> และของที่คนนอกใช้ต้อง <code>pub</code></li>
+            </ul>
+    </article>

@@ -1,0 +1,31 @@
+<article class="doc">
+      <h1>14.2 ช่องส่งข้อความ</h1>
+
+      <p>แทนที่จะให้สองเธรดแก้ก้อนเดียวกัน ส่งสำเนาของค่าผ่านช่อง ฝั่งส่งคือ <code>tx</code> ฝั่งรับคือ <code>rx</code> จาก <code>mpsc::channel</code> ชื่อย่อมาจากหลายคนส่ง คนเดียวรับ</p>
+
+      <h2 id="send">ส่งคะแนนข้ามไป</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="chan"><pre><code>use std::sync::mpsc;
+use std::thread;
+
+fn main() {
+    let (tx, rx) = mpsc::channel();
+    thread::spawn(move || {
+        tx.send(85).unwrap();
+    });
+    let score = rx.recv().unwrap();
+    println!("{score}");
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="chan" data-title="cargo run"><pre><code>85</code></pre></div>
+
+      <p><code>move</code> ย้าย <code>tx</code> เข้าเธรด <code>send</code> ส่ง 85 <code>recv</code> รอจนกว่าจะมีค่า แล้ว <code>main</code> พิมพ์ทีเดียว ผลจึงไม่สลับบรรทัด</p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li>channel ส่งค่าข้ามเธรดโดยไม่แชร์ตัวแปร</li>
+              <li><code>send</code> ยิงค่า <code>recv</code> รอรับ</li>
+              <li>ย้ายฝั่งส่งเข้าเธรดด้วย <code>move</code></li>
+            </ul>
+    </article>

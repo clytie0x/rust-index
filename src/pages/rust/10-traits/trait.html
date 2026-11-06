@@ -1,0 +1,93 @@
+<article class="doc">
+      <h1>10.2 trait</h1>
+
+      <p>นักเรียนกับห้องสอบคนละ struct แต่ทั้งคู่ตอบคำถามคะแนนรวมได้ trait คือรายการเมธอดที่ชนิดต้องทำให้ ใคร <code>impl</code> ครบก็ส่งเข้าฟังก์ชันที่ขอสัญญานั้นได้</p>
+
+      <h2 id="impl-trait">เขียนสัญญาแล้วทำให้</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="summary"><pre><code>trait Summary {
+    fn summary(&amp;self) -&gt; String;
+}
+
+struct Student {
+    name: String,
+    score: i32,
+}
+
+impl Summary for Student {
+    fn summary(&amp;self) -&gt; String {
+        format!("{} {}", self.name, self.score)
+    }
+}
+
+fn show(item: &amp;impl Summary) {
+    println!("{}", item.summary());
+}
+
+fn main() {
+    let student = Student {
+        name: String::from("Ann"),
+        score: 85,
+    };
+    show(&amp;student);
+    println!("{}", student.name);
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="summary" data-title="cargo run"><pre><code>Ann 85
+Ann</code></pre></div>
+
+      <ul>
+      <li><code>trait</code> บอกแค่ลายเซ็น ยังไม่มีตัวทำงาน</li>
+      <li><code>impl Summary for Student</code> คือการทำให้ครบ</li>
+      <li><code>&amp;impl Summary</code> แปลว่ารับการยืมของชนิดใดก็ได้ที่ทำ <code>Summary</code> ฟังก์ชันจึงไม่ผูกกับ <code>Student</code> อย่างเดียว</li>
+      </ul>
+
+      <h2 id="break-it">ลองทำให้พัง</h2>
+
+      <p>ส่ง struct ที่ไม่ได้ทำสัญญา rustc บอกว่า trait ยังไม่ถูกทำให้กับชนิดนั้น</p>
+
+<div class="code" data-lang="rust" data-linenums><pre><code>trait HasScore {
+    fn score(&amp;self) -&gt; i32;
+}
+
+fn show&lt;T: HasScore&gt;(item: T) {
+    println!("{}", item.score());
+}
+
+struct Room {
+    n: i32,
+}
+
+fn main() {
+    show(Room { n: 4 });
+}</code></pre></div>
+
+<div class="code" data-lang="rustc"><pre><code>error[E0277]: the trait bound `Room: HasScore` is not satisfied
+  --&gt; main.rs:14:10
+   |
+14 |     show(Room { n: 4 });
+   |     ---- ^^^^^^^^^^^^^ the trait `HasScore` is not implemented for `Room`
+   |     |
+   |     required by a bound introduced by this call
+   |
+help: this trait has no implementations, consider adding one
+  --&gt; main.rs:1:1
+   |
+1  | trait HasScore {
+   | ^^^^^^^^^^^^^^
+note: required by a bound in `show`
+  --&gt; main.rs:5:12
+   |
+5  | fn show&lt;T: HasScore&gt;(item: T) {
+   |            ^^^^^^^^ required by this bound in `show`</code></pre></div>
+
+      <p>ทางแก้คือ <code>impl HasScore for Room</code> แล้วคืน <code>self.n</code> หรือเลิกส่ง <code>Room</code> เข้าฟังก์ชันนี้</p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>trait</code> คือรายการเมธอดที่ต้องทำให้</li>
+              <li><code>impl Trait for Type</code> ผูกสัญญากับชนิด</li>
+              <li>อาร์กิวเมนต์ <code>impl Trait</code> รับได้ทุกชนิดที่ทำสัญญานั้น</li>
+            </ul>
+    </article>

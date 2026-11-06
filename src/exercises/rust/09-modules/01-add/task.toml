@@ -1,0 +1,4 @@
+title = "บวกในโมดูล"
+level = 1
+time_limit = 1
+hint = "<p>วาง <code>fn add</code> ไว้ใน <code>mod math</code> ใส่ <code>pub</code> แล้วเรียกจาก <code>main</code></p>"

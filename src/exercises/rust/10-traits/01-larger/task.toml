@@ -1,0 +1,4 @@
+title = "ค่าที่มากกว่า"
+level = 1
+time_limit = 1
+hint = "<p>ฟังก์ชัน <code>fn larger&lt;T: PartialOrd&gt;(a: T, b: T) -&gt; T</code> แล้วพิมพ์ผลกับจำนวนเต็มสองตัว</p>"

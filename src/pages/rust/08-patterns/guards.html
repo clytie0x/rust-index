@@ -1,0 +1,56 @@
+<article class="doc">
+      <h1>8.3 เงื่อนไขใน match</h1>
+
+      <p>บางแขนอยากรับค่าแล้วยังถามเงื่อนไขต่อ เช่น รับตัวเลขมาได้แต่จะให้เกรด A เฉพาะที่ตั้งแต่ 80 เงื่อนไขท้ายรูปแบบเรียกว่า guard</p>
+
+      <h2 id="guard">guard</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="guard"><pre><code>fn label(score: i32) -&gt; &amp;'static str {
+    match score {
+        n if n &gt;= 80 =&gt; "A",
+        n if n &gt;= 70 =&gt; "B",
+        _ =&gt; "C",
+    }
+}
+
+fn main() {
+    println!("{}", label(85));
+    println!("{}", label(75));
+    println!("{}", label(61));
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="guard" data-title="cargo run"><pre><code>A
+B
+C</code></pre></div>
+
+      <p>แขนบนถูกตรวจก่อน ถ้า guard ไม่จริง จะไปแขนถัดไป ทั้งที่รูปแบบ <code>n</code> จับตัวเลขได้ทุกค่า ลำดับแขนจึงมีความหมาย</p>
+
+      <h2 id="or">รวมหลายค่าด้วย |</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="edge"><pre><code>fn is_edge(score: i32) -&gt; bool {
+    match score {
+        0 | 100 =&gt; true,
+        _ =&gt; false,
+    }
+}
+
+fn main() {
+    println!("{}", is_edge(0));
+    println!("{}", is_edge(80));
+    println!("{}", is_edge(100));
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="edge" data-title="cargo run"><pre><code>true
+false
+true</code></pre></div>
+
+      <p><code>0 | 100</code> คือค่าใดค่าหนึ่งในสองจำนวนนี้ ใช้เมื่อหลายค่าทำอย่างเดียวกัน ไม่ต้องเขียนแขนซ้ำ</p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li>เขียน <code>รูปแบบ if เงื่อนไข</code> เพื่อกรองแขนเพิ่ม</li>
+              <li>แขนบนก่อน ถ้า guard ไม่จริงจึงหล่นไปแขนถัดไป</li>
+              <li><code>|</code> รวมหลายรูปแบบในแขนเดียว</li>
+            </ul>
+    </article>

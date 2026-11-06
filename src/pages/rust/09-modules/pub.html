@@ -1,0 +1,65 @@
+<article class="doc">
+      <h1>9.2 สิทธิ์ pub</h1>
+
+      <p>ไม่ใช่ทุกฟังก์ชันควรโผล่ให้คนนอกเรียก ตัวช่วยที่เปลี่ยนบ่อยควรอยู่ข้างใน แล้วให้ฟังก์ชัน <code>pub</code> ตัวเดียวเป็นประตู</p>
+
+      <h2 id="inside">ข้างในเรียกของส่วนตัวได้</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="door"><pre><code>mod grade {
+    fn band(score: i32) -&gt; &amp;'static str {
+        if score &gt;= 80 {
+            "A"
+        } else {
+            "C"
+        }
+    }
+
+    pub fn show(score: i32) {
+        println!("{}", band(score));
+    }
+}
+
+fn main() {
+    grade::show(85);
+    grade::show(60);
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="door" data-title="cargo run"><pre><code>A
+C</code></pre></div>
+
+      <p><code>band</code> ไม่มี <code>pub</code> แต่ <code>show</code> ที่อยู่ในโมดูลเดียวกันเรียกได้ <code>main</code> เรียกได้แค่ <code>show</code></p>
+
+      <h2 id="break-it">ลองทำให้พัง</h2>
+
+<div class="code" data-lang="rust" data-linenums><pre><code>mod grade {
+    fn band(score: i32) -&gt; &amp;'static str {
+        if score &gt;= 80 { "A" } else { "C" }
+    }
+}
+
+fn main() {
+    println!("{}", grade::band(85));
+}</code></pre></div>
+
+<div class="code" data-lang="rustc"><pre><code>error[E0603]: function `band` is private
+ --&gt; main.rs:8:27
+  |
+8 |     println!("{}", grade::band(85));
+  |                           ^^^^ private function
+  |
+note: the function `band` is defined here
+ --&gt; main.rs:2:5
+  |
+2 |     fn band(score: i32) -&gt; &amp;'static str {
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</code></pre></div>
+
+      <p>เติม <code>pub</code> หน้า <code>fn band</code> ถ้าตั้งใจให้คนนอกเรียก หรือเรียกผ่านฟังก์ชันประตูอย่าง <code>show</code></p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li>ของในโมดูลเป็นส่วนตัวจนกว่าจะใส่ <code>pub</code></li>
+              <li>ฟังก์ชันในโมดูลเดียวกันเรียกของส่วนตัวได้</li>
+              <li>คนนอกเรียกของส่วนตัวไม่ได้ rustc บอกว่า private</li>
+            </ul>
+    </article>

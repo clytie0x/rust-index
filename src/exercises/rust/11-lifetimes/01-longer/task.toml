@@ -1,0 +1,4 @@
+title = "คำที่ยาวกว่า"
+level = 2
+time_limit = 1
+hint = "<p>ฟังก์ชันคืน <code>&amp;str</code> ด้วยป้าย <code>'a</code> เปรียบเทียบ <code>len</code> ถ้าเท่ากันคืนคำแรก</p>"

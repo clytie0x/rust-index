@@ -1,0 +1,35 @@
+<article class="doc">
+      <h1>12.3 sum กับ collect</h1>
+
+      <p>ผลรวมไม่ต้องมีตัวแปรสะสมเสมอไป <code>sum</code> รวมให้เมื่อชนิดบวกกันได้ ส่วน <code>map</code> แปลงทุกช่องเป็นค่าใหม่ก่อนเก็บ</p>
+
+      <h2 id="sum">รวมและบวกคะแนนพิเศษ</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="sum"><pre><code>fn main() {
+    let scores = vec![70, 80, 90];
+    let total: i32 = scores.iter().sum();
+    let bumped: Vec&lt;i32&gt; = scores.iter().map(|score| score + 5).collect();
+    println!("{total}");
+    println!("{}", bumped[0]);
+    println!("{}", bumped.len());
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="sum" data-title="cargo run"><pre><code>240
+75
+3</code></pre></div>
+
+      <p><code>iter</code> ให้ <code>&amp;i32</code> ซึ่งบวกกับ 5 ได้ จึงไม่ต้องใส่ <code>*</code> ใน <code>map</code> ตัวนี้ ชนิดของ <code>total</code> ต้องเขียน เพราะ <code>sum</code> คืนได้หลายชนิดตัวเลข</p>
+
+      <div class="adm adm-tip" role="note">
+              <p class="adm-title">for ยังอ่านง่ายกว่าในหลายข้อ</p>
+              <p>ถ้าติวแล้วลูปชัดกว่า ใช้ for ได้ ไม่มีคะแนนพิเศษเพราะใช้ iterator สายนี้มีไว้เมื่อการแปลงอ่านเป็นประโยคเดียว</p>
+            </div>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>sum</code> รวมค่าที่ iterator ให้</li>
+              <li><code>map</code> แปลงทุกช่อง แล้วมักตามด้วย <code>collect</code></li>
+              <li>ใส่ชนิดให้ <code>sum</code> และ <code>collect</code> เมื่อ rustc เดาไม่พอ</li>
+            </ul>
+    </article>

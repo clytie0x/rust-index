@@ -1,0 +1,4 @@
+title = "หนึ่งหรือสองจำนวน"
+level = 2
+time_limit = 1
+hint = "<p>อ่านคำแรกเป็นคะแนนเสมอ ถ้ามีคำที่สองให้บวกเพิ่ม ใช้ <code>next</code> ที่คืน <code>Option</code></p>"

@@ -12,8 +12,7 @@ base = "/"
 path = "index.html"
 title = "หน้าแรก"
 
-# บทที่ยังไม่มี path คือบทที่วางแผนไว้ จะขึ้นในแผนที่หน้าแรกเป็นสีจาง แต่ไม่อยู่ในเมนูซ้าย
-# พอเขียนบทนั้นแล้ว ให้ใส่ path กับ pages ตามบทที่ 0
+# บทที่มี path อยู่ในเมนูซ้ายและแผนที่คอร์ส
 
 [[chapters]]
 track = "ภาษา Rust  ชุดเริ่มต้น"
@@ -27,7 +26,6 @@ pages = [
   { num = "0.3", title = "อ่าน error จาก rustc", path = "rust/00-start/first-error.html" },
   { num = "0.4", title = "แบบฝึกหัด", path = "rust/00-start/exercises.html", exercises = "rust/00-start" },
 ]
-
 [[chapters]]
 track = "ภาษา Rust  ชุดเริ่มต้น"
 num = "1"
@@ -40,7 +38,6 @@ pages = [
   { num = "1.3", title = "String กับ &str", path = "rust/01-variables/strings.html" },
   { num = "1.4", title = "แบบฝึกหัด", path = "rust/01-variables/exercises.html", exercises = "rust/01-variables" },
 ]
-
 [[chapters]]
 track = "ภาษา Rust  ชุดเริ่มต้น"
 num = "2"
@@ -53,7 +50,6 @@ pages = [
   { num = "2.3", title = "ยืมแบบแก้ได้", path = "rust/02-ownership/mut-borrow.html" },
   { num = "2.4", title = "แบบฝึกหัด", path = "rust/02-ownership/exercises.html", exercises = "rust/02-ownership" },
 ]
-
 [[chapters]]
 track = "ภาษา Rust  ชุดเริ่มต้น"
 num = "3"
@@ -66,21 +62,147 @@ pages = [
   { num = "3.3", title = "match", path = "rust/03-functions/match.html" },
   { num = "3.4", title = "แบบฝึกหัด", path = "rust/03-functions/exercises.html", exercises = "rust/03-functions" },
 ]
-
 [[chapters]]
-track = "ภาษา Rust  ชุดเริ่มต้น"
+track = "ภาษา Rust  ข้อมูล"
 num = "4"
 title = "บทที่ 4 Vec"
-summary = "เก็บค่าหลายตัวในลิสต์ที่ยาวขึ้นได้"
-
+summary = "ลิสต์ที่ยาวขึ้นได้ วนอ่าน และระวังดัชนี"
+path = "rust/04-vec/index.html"
+pages = [
+  { num = "4.1", title = "อาเรย์กับสไลซ์", path = "rust/04-vec/array.html" },
+  { num = "4.2", title = "Vec", path = "rust/04-vec/vec.html" },
+  { num = "4.3", title = "วนลิสต์", path = "rust/04-vec/loop.html" },
+  { num = "4.4", title = "แบบฝึกหัด", path = "rust/04-vec/exercises.html", exercises = "rust/04-vec" },
+]
 [[chapters]]
-track = "ภาษา Rust  ชุดเริ่มต้น"
+track = "ภาษา Rust  ข้อมูล"
 num = "5"
 title = "บทที่ 5 struct กับ enum"
 summary = "รวมข้อมูลเป็นก้อน และทางเลือกที่ตรวจได้ตอนคอมไพล์"
-
+path = "rust/05-struct-enum/index.html"
+pages = [
+  { num = "5.1", title = "struct", path = "rust/05-struct-enum/struct.html" },
+  { num = "5.2", title = "เมธอดใน impl", path = "rust/05-struct-enum/methods.html" },
+  { num = "5.3", title = "enum", path = "rust/05-struct-enum/enum.html" },
+  { num = "5.4", title = "แบบฝึกหัด", path = "rust/05-struct-enum/exercises.html", exercises = "rust/05-struct-enum" },
+]
 [[chapters]]
-track = "ภาษา Rust  ชุดเริ่มต้น"
+track = "ภาษา Rust  ข้อมูล"
 num = "6"
 title = "บทที่ 6 จัดการ error"
-summary = "Result แทนการ unwrap"
+summary = "Option กับ Result แทนการเดาว่าค่ามีเสมอ"
+path = "rust/06-errors/index.html"
+pages = [
+  { num = "6.1", title = "Option", path = "rust/06-errors/option.html" },
+  { num = "6.2", title = "Result", path = "rust/06-errors/result.html" },
+  { num = "6.3", title = "เครื่องหมายคำถาม", path = "rust/06-errors/question.html" },
+  { num = "6.4", title = "แบบฝึกหัด", path = "rust/06-errors/exercises.html", exercises = "rust/06-errors" },
+]
+[[chapters]]
+track = "ภาษา Rust  ข้อมูล"
+num = "7"
+title = "บทที่ 7 คอลเลกชัน"
+summary = "แตกข้อความ นับคำ และค้นคะแนนจากชื่อ"
+path = "rust/07-collections/index.html"
+pages = [
+  { num = "7.1", title = "แตกข้อความ", path = "rust/07-collections/split.html" },
+  { num = "7.2", title = "HashMap", path = "rust/07-collections/hashmap.html" },
+  { num = "7.3", title = "HashSet", path = "rust/07-collections/hashset.html" },
+  { num = "7.4", title = "แบบฝึกหัด", path = "rust/07-collections/exercises.html", exercises = "rust/07-collections" },
+]
+[[chapters]]
+track = "ภาษา Rust  จัดโปรแกรม"
+num = "8"
+title = "บทที่ 8 pattern matching เพิ่ม"
+summary = "แกะค่า if let และเงื่อนไขในแขนของ match"
+path = "rust/08-patterns/index.html"
+pages = [
+  { num = "8.1", title = "แกะ struct กับ enum", path = "rust/08-patterns/destructure.html" },
+  { num = "8.2", title = "if let และ while let", path = "rust/08-patterns/if-let.html" },
+  { num = "8.3", title = "เงื่อนไขใน match", path = "rust/08-patterns/guards.html" },
+  { num = "8.4", title = "แบบฝึกหัด", path = "rust/08-patterns/exercises.html", exercises = "rust/08-patterns" },
+]
+[[chapters]]
+track = "ภาษา Rust  จัดโปรแกรม"
+num = "9"
+title = "บทที่ 9 โมดูลกับ crate"
+summary = "แยกชื่อเป็นกลุ่ม เปิด pub เฉพาะที่คนนอกเรียก"
+path = "rust/09-modules/index.html"
+pages = [
+  { num = "9.1", title = "mod ในไฟล์เดียว", path = "rust/09-modules/mod.html" },
+  { num = "9.2", title = "สิทธิ์ pub", path = "rust/09-modules/pub.html" },
+  { num = "9.3", title = "use กับโครง cargo", path = "rust/09-modules/layout.html" },
+  { num = "9.4", title = "แบบฝึกหัด", path = "rust/09-modules/exercises.html", exercises = "rust/09-modules" },
+]
+[[chapters]]
+track = "ภาษา Rust  จัดโปรแกรม"
+num = "10"
+title = "บทที่ 10 trait กับ generic"
+summary = "ฟังก์ชันเดียวใช้ได้หลายชนิด ผ่านสัญญาที่ชนิดนั้นทำได้"
+path = "rust/10-traits/index.html"
+pages = [
+  { num = "10.1", title = "ฟังก์ชัน generic", path = "rust/10-traits/generic.html" },
+  { num = "10.2", title = "trait", path = "rust/10-traits/trait.html" },
+  { num = "10.3", title = "Debug กับ derive", path = "rust/10-traits/derive.html" },
+  { num = "10.4", title = "แบบฝึกหัด", path = "rust/10-traits/exercises.html", exercises = "rust/10-traits" },
+]
+[[chapters]]
+track = "ภาษา Rust  จัดโปรแกรม"
+num = "11"
+title = "บทที่ 11 lifetime แบบค่อยๆ"
+summary = "บอกว่าการยืมที่คืนออกไปมีชีวิตตามค่าไหน"
+path = "rust/11-lifetimes/index.html"
+pages = [
+  { num = "11.1", title = "ทำไมต้องมี lifetime", path = "rust/11-lifetimes/why.html" },
+  { num = "11.2", title = "เขียน lifetime ให้ฟังก์ชัน", path = "rust/11-lifetimes/annotate.html" },
+  { num = "11.3", title = "struct ที่เก็บการยืม", path = "rust/11-lifetimes/hold.html" },
+  { num = "11.4", title = "แบบฝึกหัด", path = "rust/11-lifetimes/exercises.html", exercises = "rust/11-lifetimes" },
+]
+[[chapters]]
+track = "ภาษา Rust  ใช้จริง"
+num = "12"
+title = "บทที่ 12 iterator กับ closure"
+summary = "ฟังก์ชันก้อนเล็ก และสายกรองค่าโดยไม่เขียนลูปทุกครั้ง"
+path = "rust/12-iterators/index.html"
+pages = [
+  { num = "12.1", title = "closure", path = "rust/12-iterators/closure.html" },
+  { num = "12.2", title = "map กับ filter", path = "rust/12-iterators/map.html" },
+  { num = "12.3", title = "sum กับ collect", path = "rust/12-iterators/collect.html" },
+  { num = "12.4", title = "แบบฝึกหัด", path = "rust/12-iterators/exercises.html", exercises = "rust/12-iterators" },
+]
+[[chapters]]
+track = "ภาษา Rust  ใช้จริง"
+num = "13"
+title = "บทที่ 13 smart pointer ภาพรวม"
+summary = "Box เมื่อก้อนต้องอยู่บน heap Rc เมื่อมีหลายเจ้าของ RefCell เมื่อต้องแก้ผ่านการยืม"
+path = "rust/13-pointers/index.html"
+pages = [
+  { num = "13.1", title = "Box", path = "rust/13-pointers/box.html" },
+  { num = "13.2", title = "Rc", path = "rust/13-pointers/rc.html" },
+  { num = "13.3", title = "RefCell", path = "rust/13-pointers/refcell.html" },
+  { num = "13.4", title = "แบบฝึกหัด", path = "rust/13-pointers/exercises.html", exercises = "rust/13-pointers" },
+]
+[[chapters]]
+track = "ภาษา Rust  ใช้จริง"
+num = "14"
+title = "บทที่ 14 concurrency ภาพรวม"
+summary = "รันงานคู่กัน ส่งค่าข้ามเธรด และแชร์ตัวเลขอย่างมีกุญแจ"
+path = "rust/14-concurrency/index.html"
+pages = [
+  { num = "14.1", title = "เธรดกับ join", path = "rust/14-concurrency/thread.html" },
+  { num = "14.2", title = "ช่องส่งข้อความ", path = "rust/14-concurrency/channel.html" },
+  { num = "14.3", title = "Arc กับ Mutex", path = "rust/14-concurrency/shared.html" },
+  { num = "14.4", title = "แบบฝึกหัด", path = "rust/14-concurrency/exercises.html", exercises = "rust/14-concurrency" },
+]
+[[chapters]]
+track = "ภาษา Rust  ใช้จริง"
+num = "15"
+title = "บทที่ 15 ทดสอบ cargo และเอกสาร"
+summary = "ล็อกพฤติกรรมด้วย assert รันเทส และเขียนเอกสารสั้นๆ"
+path = "rust/15-testing/index.html"
+pages = [
+  { num = "15.1", title = "assert", path = "rust/15-testing/assert.html" },
+  { num = "15.2", title = "cargo test", path = "rust/15-testing/cargo-test.html" },
+  { num = "15.3", title = "คอมเมนต์เอกสาร", path = "rust/15-testing/docs.html" },
+  { num = "15.4", title = "แบบฝึกหัด", path = "rust/15-testing/exercises.html", exercises = "rust/15-testing" },
+]

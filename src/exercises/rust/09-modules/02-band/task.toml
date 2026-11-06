@@ -1,0 +1,4 @@
+title = "เกรดที่เปิดให้เรียก"
+level = 2
+time_limit = 1
+hint = "<p>ฟังก์ชันในโมดูลต้อง <code>pub</code> แล้ว <code>use</code> หรือเรียกผ่าน <code>::</code> ก็ได้</p>"

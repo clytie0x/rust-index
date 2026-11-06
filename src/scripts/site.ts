@@ -86,7 +86,8 @@ function initDrawer(): void {
 
 /* ---------- สีไวยากรณ์ภาษา Rust ---------- */
 
-const RUST_TYPES = /^(i8|i16|i32|i64|i128|isize|u8|u16|u32|u64|u128|usize|f32|f64|bool|char|str|String)$/;
+const RUST_TYPES = /^(i8|i16|i32|i64|i128|isize|u8|u16|u32|u64|u128|usize|f32|f64|bool|char|str|String|Vec|Option|Result|Box|Rc|Arc|HashMap|HashSet|Mutex)$/;
+const RUST_CTORS = /^(Some|None|Ok|Err)$/;
 const RUST_KEYWORDS = /^(as|async|await|break|const|continue|crate|else|enum|extern|false|fn|for|if|impl|in|let|loop|match|mod|move|mut|pub|ref|return|self|Self|static|struct|super|trait|true|type|unsafe|use|where|while|dyn|_)$/;
 
 /* ตำแหน่งที่จะใส่ปุ่มคำอธิบายแทน // (n)! */
@@ -130,7 +131,7 @@ function hlCodeRust(s: string): Highlighted {
     else if (sq) out += hlString(sq);
     else if (num) out += tk("num", num);
     else if (word) {
-      if (RUST_TYPES.test(word)) out += tk("type", word);
+      if (RUST_TYPES.test(word) || RUST_CTORS.test(word)) out += tk("type", word);
       else if (RUST_KEYWORDS.test(word)) out += tk("kw", word);
       else if (/^\s*[!(]/.test(s.slice(re.lastIndex))) out += tk("fn", word);
       else out += esc(word);

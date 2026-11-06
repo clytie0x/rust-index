@@ -1,0 +1,59 @@
+<article class="doc">
+      <h1>6.3 เครื่องหมายคำถาม</h1>
+
+      <p>ฟังก์ชันที่ทำหลายขั้น ถ้าทุกขั้นเขียน <code>match</code> จะยาว <code>?</code> แปลว่า ถ้าค่านี้เป็น <code>Err</code> ให้คืน error ออกจากฟังก์ชันทันที ถ้าเป็น <code>Ok</code> ให้เอาค่าข้างในไปใช้ต่อ</p>
+
+      <h2 id="in-result">ใช้ในฟังก์ชันที่คืน Result</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="double"><pre><code>fn double_score(text: &amp;str) -&gt; Result&lt;i32, std::num::ParseIntError&gt; {
+    let n: i32 = text.trim().parse()?;
+    Ok(n * 2)
+}
+
+fn main() {
+    match double_score("40") {
+        Ok(n) =&gt; println!("{n}"),
+        Err(_) =&gt; println!("bad"),
+    }
+    match double_score("nope") {
+        Ok(n) =&gt; println!("{n}"),
+        Err(_) =&gt; println!("bad"),
+    }
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="double" data-title="cargo run"><pre><code>80
+bad</code></pre></div>
+
+      <p>บรรทัด <code>parse?</code> ถ้าแปลงไม่ได้ ฟังก์ชัน <code>double_score</code> คืน <code>Err</code> ทันที ไม่ไปคูณสอง ถ้าแปลงได้ <code>n</code> เป็น <code>i32</code> แล้วบรรทัดถัดไปห่อด้วย <code>Ok</code></p>
+
+      <h2 id="break-it">ลองทำให้พัง</h2>
+
+      <p><code>?</code> ใช้ได้ในฟังก์ชันที่คืน <code>Result</code> หรือ <code>Option</code> เท่านั้น <code>main</code> ปกติคืน <code>()</code> จึงรับ <code>?</code> ไม่ได้</p>
+
+<div class="code" data-lang="rust" data-linenums><pre><code>fn parse_score(text: &amp;str) -&gt; Result&lt;i32, std::num::ParseIntError&gt; {
+    text.parse()
+}
+
+fn main() {
+    let n = parse_score("85")?;
+    println!("{n}");
+}</code></pre></div>
+
+<div class="code" data-lang="rustc"><pre><code>error[E0277]: the `?` operator can only be used in a function that returns `Result` or `Option` (or another type that implements `FromResidual`)
+ --&gt; main.rs:6:30
+  |
+5 | fn main() {
+  | --------- this function should return `Result` or `Option` to accept `?`
+6 |     let n = parse_score("85")?;
+  |                              ^ cannot use the `?` operator in a function that returns `()`</code></pre></div>
+
+      <p>ตัดส่วน help ที่พูดถึง <code>FromResidual</code> และ <code>Box</code> ออก เพราะสองคำนั้นอยู่บทที่ 10 และบทที่ 13 ทางที่ใช้ตอนนี้คืออย่าใส่ <code>?</code> ใน <code>main</code> ให้ <code>match</code> ที่ <code>main</code> แล้วใส่ <code>?</code> ในฟังก์ชันที่คืน <code>Result</code></p>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>?</code> คืน error ทันทีเมื่อขั้นนั้นพลาด</li>
+              <li>ฟังก์ชันที่ใช้ <code>?</code> ต้องคืน <code>Result</code> หรือ <code>Option</code></li>
+              <li>ที่ <code>main</code> ให้ <code>match</code> แทน</li>
+            </ul>
+    </article>

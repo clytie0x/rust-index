@@ -1,0 +1,4 @@
+title = "คะแนนหรือข้าม"
+level = 2
+time_limit = 1
+hint = "<p><code>if let Ok(n) = text.trim().parse::&lt;i32&gt;()</code> แล้วพิมพ์ score = n ไม่งั้นพิมพ์ skip</p>"

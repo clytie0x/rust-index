@@ -1,0 +1,56 @@
+<article class="doc">
+      <h1>8.2 if let และ while let</h1>
+
+      <p><code>match</code> เหมาะเมื่อทุกทางมีความหมาย ถ้าสนใจแค่ <code>Some</code> แล้วทาง <code>None</code> คือข้ามไป <code>if let</code> สั้นกว่า</p>
+
+      <h2 id="if-let">if let</h2>
+
+<div class="code" data-lang="rust" data-linenums data-test="one"><pre><code>fn main() {
+    let found = Some(85);
+    if let Some(n) = found {
+        println!("{n}");
+    }
+
+    let missing: Option&lt;i32&gt; = None;
+    if let Some(n) = missing {
+        println!("{n}");
+    } else {
+        println!("missing");
+    }
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="one" data-title="cargo run"><pre><code>85
+missing</code></pre></div>
+
+      <p>รูปแบบอยู่หน้า <code>=</code> ค่าอยู่หลัง ถ้าเข้ากันได้ ชื่อในรูปแบบใช้ได้ในบล็อก ถ้าไม่เข้าและมี <code>else</code> จะไปทางนั้น</p>
+
+      <h2 id="while-let">while let</h2>
+
+      <p><code>Vec::pop</code> ดึงตัวท้ายออกแล้วคืน <code>Option</code> วนจนกว่าจะว่างได้ด้วย <code>while let</code> ตัวเลขเลยออกทีหลังก่อน</p>
+
+<div class="code" data-lang="rust" data-linenums data-test="pop"><pre><code>fn main() {
+    let mut scores = vec![70, 80, 90];
+    while let Some(n) = scores.pop() {
+        println!("{n}");
+    }
+    println!("left = {}", scores.len());
+}</code></pre></div>
+
+      <div class="code" data-lang="output" data-for="pop" data-title="cargo run"><pre><code>90
+80
+70
+left = 0</code></pre></div>
+
+      <div class="adm adm-note" role="note">
+              <p class="adm-title">if let ไม่ได้ตรวจว่าคิดครบทุกทาง</p>
+              <p>ถ้า enum มีสามทางแล้วเขียน if let แค่ทางเดียว อีกสองทางหายเงียบๆ ใช้เมื่อตั้งใจข้าม ถ้าทุกทางต้องมีผล ให้กลับไป match</p>
+            </div>
+
+      <h2 id="summary">สรุป</h2>
+
+      <ul>
+              <li><code>if let รูปแบบ = ค่า</code> ทำงานเมื่อจับคู่ได้</li>
+              <li><code>while let</code> วนตราบเท่าที่ยังจับคู่ได้</li>
+              <li>ทางที่ไม่ได้เขียนจะถูกข้าม จึงไม่แทน match ที่ต้องครบ</li>
+            </ul>
+    </article>

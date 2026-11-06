@@ -1,0 +1,4 @@
+title = "รวมในกล่อง"
+level = 1
+time_limit = 1
+hint = "<p>อ่านทุกจำนวนลง <code>Vec</code> แล้วใส่ <code>Box::new</code> จากนั้นวนบวก</p>"
